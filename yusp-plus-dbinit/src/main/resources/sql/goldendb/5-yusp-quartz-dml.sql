@@ -1,8 +1,0 @@
-INSERT INTO `schedule_job`(`job_id`, `bean_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES (1, 'testTask', '测试00', '0 0/30 * * * ?', 1, '参数测试', '2021-03-05 16:44:16');
-INSERT INTO `schedule_job`(`job_id`, `bean_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES (2, 'userLoadTask', '测试01', '0/30 * * * * ?', 1, '用户信息导入redis', '2021-03-05 10:20:49');
-INSERT INTO `schedule_job`(`job_id`, `bean_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES (3, 'orgLoadTask', '测试02', '0/30 * * * * ?', 1, '机构信息导入redis', '2021-03-05 10:21:30');
-INSERT INTO `schedule_job`(`job_id`, `bean_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES (5, 'messageLoadTask', NULL, '0/30 * * * * ?', 1, '系统提示消息加载', '2021-03-30 18:14:18');
-INSERT INTO schedule_job(job_id, bean_name, params, cron_expression, status, remark, create_time) VALUES (1629167283608881, 'orgSeqUpdateTask', '{\"deep\":5,flag:true}', '0 0 12 * * ?', 1, '机构表ORG_SEQ字段更新任务，手动执行即可', '2021-08-17 10:28:04');
-
-INSERT INTO `schedule_job`(`job_id`, `bean_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES (6, 'dptLoadTask', NULL, '0/30 * * * * ?', 1, '部门信息加载到redis', '2021-03-30 18:14:18');
-INSERT INTO `schedule_job`(`job_id`, `bean_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES (7, 'propLoadTask', NULL, '0/30 * * * * ?', 1, '系统参数信息加载到redis', '2021-03-30 18:14:18');
