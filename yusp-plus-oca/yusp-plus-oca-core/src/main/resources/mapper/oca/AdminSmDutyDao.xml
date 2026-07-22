@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmDutyDao">
+    <select id="selectAllDuty" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDutyVo">
+        SELECT
+            d.*,
+            u.USER_NAME as last_chg_name,
+            o.ORG_NAME
+        FROM
+            admin_sm_duty d
+                LEFT JOIN admin_sm_user u ON u.USER_ID = d.LAST_CHG_USR
+                LEFT JOIN admin_sm_org o ON o.ORG_ID = d.ORG_ID
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="getDutysForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDutyVo" >
+        select T1.duty_code as dutyId, T1.duty_name ,T1.org_id as orgId from admin_sm_duty T1
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getDutysByUserIdForWf" resultType="java.lang.String">
+        select T3.DUTY_CODE
+        from admin_sm_duty T3,
+             admin_sm_user_duty_rel T2,
+             admin_sm_user T1
+        where T3.duty_id = T2.duty_id
+          and T2.user_id = T1.user_id
+          and T1.login_code = #{userId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectOrgAccessibleDuty" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDutyVo">
+        SELECT T0.DUTY_ID,T0.DUTY_CODE,T0.DUTY_NAME,T0.ORG_ID,T0.DUTY_STS,T0.LAST_CHG_USR,T0.LAST_CHG_DT,T1.ORG_NAME
+        FROM admin_sm_duty  T0
+        LEFT JOIN  admin_sm_org  T1 ON T0.ORG_ID=T1.ORG_ID
+        ${ew.customSqlSegment}
+    </select>
+
+
+</mapper>

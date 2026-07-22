@@ -1,0 +1,1 @@
+在 spring-security-oauth2-authorization-server 中，认证的入口为 OAuth2TokenEndpointFilter 类，即 /oauth2/token 接口，用于获取 token。

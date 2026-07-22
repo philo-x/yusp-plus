@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmDataAuthTmplDao">
+
+    <select id="selectByCondition" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataAuthTmplVo">
+        select
+            t.AUTH_TMPL_ID,
+            t.AUTH_TMPL_NAME,
+            t.status,
+            t.LAST_CHG_DT,
+            t.LAST_CHG_USR,
+            t.PRIORITY,
+            t.SQL_NAME,
+            t.SQL_STRING
+        from admin_sm_data_auth_tmpl t
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectAuthTree" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmAuthTreeVo">
+        select
+            tr.AUTH_RECO_ID,
+			tr.AUTHRES_ID,
+            tr.AUTH_TMPL_NAME AS NODE_NAME,
+            a.CONTR_ID AS UP_TREE_ID,
+            tr.AUTHRES_TYPE
+        from
+            (select
+            t.AUTH_TMPL_ID, t.AUTH_TMPL_NAME, r.AUTH_RECO_ID, r.AUTHRES_ID, r.AUTHRES_TYPE
+            from admin_sm_auth_reco r
+            INNER JOIN admin_sm_data_auth_tmpl t
+            ON r.AUTHRES_ID = t.AUTH_TMPL_ID
+            WHERE r.AUTHOBJ_ID = #{id}
+            <if test="dataTenantId != null and dataTenantId !=''">
+                and r.data_tenant_id = #{dataTenantId}
+            </if>
+            ) tr
+        LEFT JOIN admin_sm_data_auth a
+        ON tr.AUTH_TMPL_ID = a.AUTH_TMPL_ID
+    </select>
+
+    <select id="selectAssociatedTmpl" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminDataAuthVo">
+        select
+            a.AUTH_ID,
+            a.AUTH_TMPL_ID,
+            a.CONTR_ID,
+            t.AUTH_TMPL_NAME,
+            t.SQL_NAME,
+            t.SQL_STRING
+        from admin_sm_data_auth a
+        LEFT JOIN admin_sm_data_auth_tmpl t
+        ON a.AUTH_TMPL_ID = t.AUTH_TMPL_ID
+        ${ew.customSqlSegment}
+        order by a.AUTH_ID
+    </select>
+
+    <select id="getListForContr" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataTmplListVo">
+        select
+            distinct
+            t.auth_tmpl_id,
+            t.auth_tmpl_name,
+            t.sql_name,
+            t.sql_string,
+            case when a.contr_id is not null then 1 else 0 end as mark
+        from admin_sm_data_auth_tmpl t
+        left join admin_sm_data_auth a
+        on a.auth_tmpl_id = t.auth_tmpl_id and (a.contr_id = #{contrId} or a.auth_tmpl_id in #{lastTmplIds})
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="associatedTmplList" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminDataAuthVo">
+        select
+            a.AUTH_ID,
+            a.AUTH_TMPL_ID,
+            a.CONTR_ID,
+            t.AUTH_TMPL_NAME,
+            t.SQL_NAME,
+            t.SQL_STRING,
+            t.PRIORITY
+        from admin_sm_data_auth a
+        LEFT JOIN admin_sm_data_auth_tmpl t
+        ON a.AUTH_TMPL_ID = t.AUTH_TMPL_ID
+        ${ew.customSqlSegment}
+
+    </select>
+
+    <select id="selectByContrId" resultType="cn.com.yusys.yusp.oca.domain.entity.AdminSmDataAuthTmplEntity">
+        select
+            t.AUTH_TMPL_ID,
+            t.AUTH_TMPL_NAME,
+            t.SQL_NAME,
+            t.SQL_STRING,
+            t.PRIORITY,
+            t.status
+        from admin_sm_data_auth a
+        LEFT JOIN admin_sm_data_auth_tmpl t
+        ON a.AUTH_TMPL_ID = t.AUTH_TMPL_ID
+        where a.CONTR_ID = #{contrId}
+        <if test="dataTenantId !=null and dataTenantId != ''">
+            AND a.data_tenant_id = #{dataTenantId}
+        </if>
+    </select>
+
+    <select id="getTmplAndRecoVoList" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminTmplAndRecoVo">
+        select
+            r.menu_id as contr_id,
+            r.auth_reco_id,
+            t.auth_tmpl_id,
+            t.auth_tmpl_name,
+            t.sql_string,
+            t.sql_name,
+            t.priority
+        from admin_sm_auth_reco r
+        LEFT JOIN admin_sm_data_auth_tmpl t
+        ON r.AUTHRES_ID = t.AUTH_TMPL_ID
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectByCheck" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataTmplListVo">
+        SELECT
+            t.auth_tmpl_id,
+            t.auth_tmpl_name,
+            t.sql_name,
+            t.sql_string,
+		    case when a.AUTH_ID is not null then 1 else 0 end AS mark
+        FROM
+            admin_sm_data_auth_tmpl t
+        LEFT JOIN
+            (select
+                 `AUTH_ID`,
+                 `CONTR_ID`,
+                 `AUTH_TMPL_ID`,
+                 `LAST_CHG_USR`,
+                 `LAST_CHG_DT`,
+                 `DATA_TENANT_ID`
+             from admin_sm_data_auth where CONTR_ID = #{contrId}) a
+        on t.AUTH_TMPL_ID = a.AUTH_TMPL_ID
+	    ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectByContrCondition" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataTmplListVo">
+        SELECT
+            t.auth_tmpl_id,
+            t.auth_tmpl_name,
+            t.sql_name,
+            t.sql_string,
+		    case when a.AUTH_ID is not null then 1 else 0 end AS mark
+        FROM
+            admin_sm_data_auth a
+        LEFT JOIN
+            (select
+                 `AUTH_TMPL_ID`,
+                 `AUTH_TMPL_NAME`,
+                 `SQL_STRING`,
+                 `SQL_NAME`,
+                 `STATUS`,
+                 `LAST_CHG_USR`,
+                 `LAST_CHG_DT`,
+                 `PRIORITY`,
+                 `DATA_TENANT_ID`
+             from admin_sm_data_auth_tmpl ${ew.customSqlSegment}) t
+        on t.AUTH_TMPL_ID = a.AUTH_TMPL_ID
+	    where a.CONTR_ID = #{contrId}
+    </select>
+
+    <select id="getByContrIdForVo" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataTmplListVo">
+        SELECT
+            t.auth_tmpl_id,
+            t.auth_tmpl_name,
+            t.sql_name,
+            t.sql_string,
+		    case when a.AUTH_ID != null then 1 else 0 end AS mark
+        FROM
+            admin_sm_data_auth a
+        LEFT JOIN
+            admin_sm_data_auth_tmpl t
+        on t.AUTH_TMPL_ID = a.AUTH_TMPL_ID
+        where a.contr_id = #{contrId}
+    </select>
+    <select id="selectAllTmpl" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataTmplListVo">
+        SELECT
+        t.auth_tmpl_id,
+        t.auth_tmpl_name,
+        t.sql_name,
+        t.sql_string,
+        a.CONTR_ID
+        FROM
+        admin_sm_data_auth_tmpl t
+        LEFT JOIN
+        (select AUTH_ID,CONTR_ID,AUTH_TMPL_ID from admin_sm_data_auth
+            where CONTR_ID = #{contrId}
+        <if test="dataTenantId != null and dataTenantId != ''">
+            and DATA_TENANT_ID = #{dataTenantId}
+        </if>
+        ) a on t.AUTH_TMPL_ID = a.AUTH_TMPL_ID
+        ${ew.customSqlSegment}
+    </select>
+    <select id="selectTmplist" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataTmplListVo">
+        SELECT
+            auth_tmpl_id,
+            auth_tmpl_name,
+            sql_name,
+            sql_string
+        FROM
+            admin_sm_data_auth_tmpl
+                ${ew.customSqlSegment}
+    </select>
+</mapper>

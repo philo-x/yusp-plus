@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.notice.dao.AdminSmNoticeDao">
+    <select id="findListByCondition" resultType="cn.com.yusys.yusp.notice.vo.NoticeHomePageVo">
+        SELECT
+            n.NOTICE_ID,
+            n.NOTICE_TITLE,
+            n.CREATOR_ID,
+            n.CREATOR_NAME,
+            n.CREATOR_TIME,
+            n.IS_TOP,
+            n.NOTICE_LEVEL,
+            n.PUB_STS,
+            n.PUB_TIME,
+            n.PUB_ORG_ID,
+            n.PUB_ORG_NAME,
+            n.PUB_USER_ID,
+            n.PUB_USER_NAME,
+        case when r.READ_ID is null then '0' else '1' end as READ_STS
+            FROM admin_sm_notice n
+        LEFT JOIN admin_sm_notice_read r
+            ON n.NOTICE_ID = r.NOTICE_ID and r.user_id = #{userId}
+        ${ew.customSqlSegment}
+    </select>
+</mapper>

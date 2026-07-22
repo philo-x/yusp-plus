@@ -1,0 +1,55 @@
+/*
+ * 全局拓展样式
+*/
+.yu-icons{display: block;padding: 5px;overflow: auto;height: auto;}
+.yu-icons>a:link,.yu-icons>a:visited{float: left;width: 22px;height: 22px;font-size: 16px;line-height: 22px;overflow: hidden;background-color: #fff; text-align: center;color: #666;font-weight: normal;border: 1px #ddd solid;border-radius: 3px;margin: 5px;transition: .2s;}
+.yu-icons>a:hover{color: #006fcc;border-color: #006fcc;}
+.yu-icons>a:active{color: #fff;background-color: #006fcc; border-color: #006fcc;}
+.yu-icons>a.ck:link,.yu-icons>a.ck:visited,.yu-icons>a.ck:hover,.yu-icons>a.ck:active{color: #fff;background-color: #006fcc; border-color: #006fcc;}
+
+.yu-iconList{display: block;padding: 5px 0;overflow: auto;height: auto;margin: 0 -5px;}
+.yu-iconList>div{float: left;width:calc(33.33% - 30px);height: 48px;overflow: hidden; background-color: #fff;margin: 5px;padding: 10px; position: relative;border-bottom: 2px #eee solid;transition:.2s;}
+.yu-iconList>div:hover{box-shadow:0 2px 4px rgba(0,0,0,.2);border-bottom: 2px #20a0ff solid;}
+.yu-iconList>div>i{position: absolute;left: 10px;top: 10px; float: left;width: 48px;height: 48px;text-align: center; font-size: 32px;color:#666;line-height: 48px;transition: .2s;}
+.yu-iconList>div>span{display: none; position:absolute;font-size: 12px;right: 10px;top: 10px;color: #888;cursor: pointer; transition:.2s;}
+.yu-iconList>div:hover>span{display: block}
+.yu-iconList>div:hover>i{font-size: 40px;color: #20a0ff;}
+.yu-iconList>div>span:hover{ color: #20a0ff;text-decoration: underline;}
+.yu-iconList>div>span:active{color: #666;text-decoration: underline;}
+.yu-iconList>div>p{display: block;margin-left: 53px;}
+.yu-iconList>div>p>*{display: block;font-size: 12px;color: #bbb;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 24px;line-height: 24px;}
+.yu-iconList>div>p>b{font-size: 14px;color: #666;font-weight: normal;}
+.yu-iconSum{font-size:12px;display:block;text-align: right;line-height: 36px;padding-right: 10px;}
+.yu-iconSum>b{color: #20a0ff;padding: 0 5px;}
+.el-menu-item.submenu-title-noDropdown i,.el-menu-item.submenu-title-noDropdown svg.svg-icon{margin-right: 8px;}
+.yu-root-menu-wrapper .el-submenu__title>i{margin-right: 5px;}
+.yu-frame-menu .yu-logo-min{
+  padding-left: 18px;
+  text-align: left;
+}
+.yu-frame-menu .yu-logo-collapse{
+  padding-left: 13px;
+  text-align: left;
+}
+.yu-frame-top-bar-left>.hamburger-container:hover, .yu-frame-top-bar-right>.hamburger-container:hover{
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+/** 收缩菜单功能 去掉收起功能***/
+.el-menu {
+  transition: 0.3s;
+}
+.el-menu.el-menu--hide-sub-menu .is-opened .el-menu{
+  display: none;
+}
+.el-menu.el-menu--hide-sub-menu:hover  .is-opened .el-menu{
+  display: block;
+}
+
+/** 收起菜单 ...问题 **/
+.el-scrollbar__view > .el-menu.el-menu--hide-sub-menu {width: 64px;}
+/** 修改菜单没图标时对齐方式 **/
+.el-menu-item.submenu-title-noDropdown i, .el-menu-item.submenu-title-noDropdown svg.svg-icon{
+  display: inline-block;
+  width: 16px;
+}

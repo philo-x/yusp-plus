@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmMenuDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmMenuEntity" id="adminSmMenuMap">
+        <result property="menuId" column="MENU_ID"/>
+        <result property="sysId" column="SYS_ID"/>
+        <result property="funcId" column="FUNC_ID"/>
+        <result property="upMenuId" column="UP_MENU_ID"/>
+        <result property="menuName" column="MENU_NAME"/>
+        <result property="menuOrder" column="MENU_ORDER"/>
+        <result property="menuIcon" column="MENU_ICON"/>
+        <result property="menuTip" column="MENU_TIP"/>
+        <result property="i18nKey" column="I18N_KEY"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+    <select id="getAdminSmMenuVoList" resultType="cn.com.yusys.yusp.commons.session.user.impl.MenuImpl">
+        SELECT DISTINCT
+            t_menu.menu_id,t_menu.menu_name,t_menu.up_menu_id,t_menu.menu_order,t_menu.menu_icon,t_menu.func_id,
+            t_func.func_url,t_func.func_url_js,t_func.func_url_css,t_menu.i18n_key FROM
+            admin_sm_auth_reco t_reco
+                JOIN (
+                SELECT t_user.user_id user_id,
+                       t_user.org_id org_id,t_user.dpt_id dpt_id,t_rolerel.role_id role_id FROM
+                    admin_sm_user t_user LEFT JOIN (
+                        SELECT t_roelrel.user_id , t_roelrel.role_id  FROM
+                            admin_sm_user_role_rel t_roelrel
+                                JOIN admin_sm_role t_role on t_roelrel.role_id= t_role.role_id WHERE t_role.role_sts='A'
+                    ) t_rolerel ON t_user.user_id=t_rolerel.user_id
+                    ${ew.customsqlsegment}
+            ) t_authobj
+                     ON(
+                             (t_reco.authobj_type='U' AND t_reco.authobj_id = t_authobj.user_id) OR
+                             (t_reco.authobj_type='R' AND t_reco.authobj_id = t_authobj.role_id) OR
+                             (t_reco.authobj_type='G' AND t_reco.authobj_id = t_authobj.org_id) OR
+                             (t_reco.authobj_type='D' AND t_reco.authobj_id = t_authobj.dpt_id)
+                         )
+                JOIN admin_sm_menu t_menu ON(t_reco.authres_type ='M' AND t_reco.authres_id=t_menu.menu_id)
+                LEFT JOIN admin_sm_busi_func t_func ON(t_menu.func_id = t_func.func_id)
+        ORDER BY t_menu.up_menu_id,t_menu.menu_order ASC
+    </select>
+
+    <!--根据节点查询菜单信息 -->
+    <select id="getMenuInfoByMenuId" parameterType="string" resultType="cn.com.yusys.yusp.oca.domain.vo.MenuVo">
+		SELECT m.*,f.func_url,
+		(SELECT m1.menu_name FROM
+		admin_sm_menu m1 WHERE m1.menu_id = m.up_menu_id) AS up_menu_name
+		FROM
+		admin_sm_menu m
+		LEFT JOIN admin_sm_busi_func f ON (m.func_id =
+		f.func_id)
+		WHERE m.menu_id=#{menuId}
+	</select>
+
+    <select id="queryMenuTreeBySysId" parameterType="string"
+            resultType="cn.com.yusys.yusp.oca.domain.vo.MenuVo">
+        SELECT
+        b.menu_id AS id,
+		b.menu_name,b.up_menu_id,
+		'm' AS menu_type,b.menu_id
+		FROM (SELECT menu_id,menu_name,up_menu_id
+		FROM admin_sm_menu m
+		WHERE m.sys_id=#{sysid,jdbcType=VARCHAR}
+		ORDER BY m.menu_order) b
+    </select>
+
+    <select id="queryMenuTreeResContrBySysId" parameterType="string"
+            resultType="cn.com.yusys.yusp.oca.domain.vo.MenuVo">
+        SELECT t.contr_id AS id,
+		t.contr_name AS menu_name,
+		m.menu_id AS up_menu_id,
+		'c' AS menu_type,
+		m.menu_id
+		FROM admin_sm_res_contr t
+		LEFT JOIN admin_sm_menu m
+		ON m.func_id = t.func_id
+		WHERE m.sys_id=#{sysid,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAuthTree" parameterType="java.lang.String"
+            resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmAuthTreeVo">
+        SELECT
+            r.AUTH_RECO_ID,
+            r.AUTHRES_ID,
+            r.authres_type,
+            m.menu_name AS node_name,
+            m.up_menu_id AS up_tree_id,
+            m.menu_order AS order_column
+        FROM admin_sm_auth_reco r
+        INNER JOIN admin_sm_menu m
+        ON r.authres_id = m.menu_id
+        WHERE r.authobj_id = #{id}
+        <if test="dataTenantId != null and dataTenantId !=''">
+            and r.data_tenant_id = #{dataTenantId}
+        </if>
+    </select>
+
+    <select id="getMenuListForContr" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmMenuVo">
+        select
+            m1.menu_id,
+            m1.menu_name,
+            m1.up_menu_id,
+            m2.menu_name as up_menu_name,
+            m1.func_id,
+            case when m1.menu_id = #{lastMenuId} then 1 else 0 end as mark
+        from admin_sm_menu m1
+        LEFT JOIN admin_sm_menu m2
+        ON m1.up_menu_id = m2.menu_id
+        ${ew.customSqlSegment}
+        order by m1.menu_order
+    </select>
+
+
+    <!-- 批量更新菜单表,拼update-sql,一次执行sql -->
+    <update id="updateBatchMenuTree" parameterType="list" >
+        UPDATE admin_sm_menu
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="sys_id =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.sysId!=null">
+                        WHEN menu_id=#{i.menuId} THEN #{i.sysId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="up_menu_id =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.upMenuId!=null">
+                        WHEN menu_id=#{i.menuId} THEN #{i.upMenuId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="menu_order =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.menuOrder!=null">
+                        WHEN menu_id=#{i.menuId} THEN #{i.menuOrder}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="last_chg_usr =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.lastChgUsr!=null">
+                        WHEN menu_id=#{i.menuId} THEN #{i.lastChgUsr}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="last_chg_dt =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.lastChgDt!=null">
+                        WHEN menu_id=#{i.menuId} THEN #{i.lastChgDt}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        WHERE
+        <foreach collection="list" separator="or" item="i" index="index">
+            menu_id=#{i.menuId}
+        </foreach>
+    </update>
+
+    <select id="getExcludeMenuId" resultType="java.lang.String">
+        select menu_id from admin_sm_exclude_menu
+    </select>
+
+</mapper>

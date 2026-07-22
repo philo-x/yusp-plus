@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmLoginLogDao">
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmLoginLogEntity" id="adminSmLoginLogmap">
+        <result property="logId" column="LOG_ID"/>
+        <result property="tradeId" column="TRADE_ID"/>
+        <result property="loginCode" column="LOGIN_CODE"/>
+        <result property="chnlNo" column="CHNL_NO"/>
+        <result property="ipAddress" column="IP_ADDRESS"/>
+        <result property="deviceId" column="DEVICE_ID"/>
+        <result property="tradeCode" column="TRADE_CODE"/>
+        <result property="operResult" column="OPER_RESULT"/>
+        <result property="operDetail" column="OPER_DETAIL"/>
+        <result property="operDate" column="OPER_DATE"/>
+        <result property="operTime" column="OPER_TIME"/>
+    </resultMap>
+
+    <sql id="baseCloumn">
+        LOG_ID, TRADE_ID, LOGIN_CODE, CHNL_NO, IP_ADDRESS, DEVICE_ID, TRADE_CODE, OPER_RESULT, OPER_DATE, OPER_TIME
+    </sql>
+
+    <select id="getLastLoginLog" resultMap="adminSmLoginLogmap">
+        select <include refid="baseCloumn"/>
+        from admin_sm_login_log
+        where LOGIN_CODE = #{loginCode}
+        and OPER_RESULT = #{operResult}
+        order by OPER_TIME desc
+        limit 1
+    </select>
+</mapper>

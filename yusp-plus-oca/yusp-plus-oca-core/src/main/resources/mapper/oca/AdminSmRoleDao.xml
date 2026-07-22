@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmRoleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmRoleEntity" id="adminSmRoleMap">
+        <result property="roleId" column="ROLE_ID"/>
+        <result property="roleCode" column="ROLE_CODE"/>
+        <result property="roleName" column="ROLE_NAME"/>
+        <result property="orgId" column="ORG_ID"/>
+        <result property="roleLevel" column="ROLE_LEVEL"/>
+        <result property="roleSts" column="ROLE_STS"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+
+    <select id="selectAllRole" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmRoleVo">
+        SELECT
+            r.role_id,
+            r.role_code,
+            r.role_name,
+            r.org_id,
+            o.org_name,
+            r.role_level,
+            r.role_sts,
+            r.last_chg_usr,
+            r.last_chg_dt,
+            u.user_name as last_chg_name
+        FROM
+            admin_sm_role r
+            LEFT JOIN admin_sm_user u ON r.last_chg_usr = u.user_id
+            LEFT JOIN admin_sm_org o ON o.org_id = r.org_id
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectDetailById" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmRoleDetailVo">
+        SELECT
+            r.role_id,
+            r.role_code,
+            r.role_name,
+            r.org_id,
+            r.role_level,
+            r.role_sts,
+            r.last_chg_usr,
+            r.last_chg_dt,
+            o.org_name
+        FROM
+            admin_sm_role r
+        LEFT JOIN admin_sm_org o ON r.org_id = o.org_id
+        WHERE
+            r.role_id = #{roleId}
+    </select>
+
+    <select id="getRolesForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmRoleVo">
+        select T1.ROLE_CODE as roleId ,T1.ROLE_NAME ,T1.ORG_ID from admin_sm_role T1
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getUserRoleByLoginCode" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmRoleVo">
+        select r.ROLE_ID, r.ROLE_CODE, r.ROLE_NAME, r.ORG_ID, r.ROLE_LEVEL, r.ROLE_STS
+        from admin_sm_role r right join admin_sm_user_role_rel ur on r.ROLE_ID = ur.ROLE_ID
+        right join admin_sm_user u on ur.USER_ID = u.USER_ID
+        where u.LOGIN_CODE = #{loginCode}
+    </select>
+
+    <select id="selectOrgAccessible" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmRoleVo">
+        SELECT r.ROLE_ID,r.ROLE_CODE,r.ROLE_NAME,r.ROLE_LEVEL,r.ROLE_STS,r.LAST_CHG_USR,r.LAST_CHG_DT,r.ORG_ID,o.org_name
+        FROM admin_sm_role r
+                 LEFT JOIN  admin_sm_org o   ON r.ORG_ID=o.ORG_ID
+            ${ew.customSqlSegment}
+    </select>
+    <select id="getAccessRoleList" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmRoleVo">
+        SELECT
+            r.role_id,
+            r.role_code,
+            r.role_name,
+            r.org_id,
+            o.org_name,
+            r.role_level,
+            r.role_sts,
+            r.last_chg_usr,
+            r.last_chg_dt
+        FROM
+            admin_sm_role r
+        LEFT JOIN admin_sm_org o ON o.org_id = r.org_id
+            ${ew.customSqlSegment}
+    </select>
+
+
+</mapper>

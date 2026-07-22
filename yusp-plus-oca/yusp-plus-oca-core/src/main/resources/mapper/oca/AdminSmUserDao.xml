@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmUserDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmUserEntity" id="adminSmUserMap">
+        <result property="userId" column="USER_ID"/>
+        <result property="loginCode" column="LOGIN_CODE"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="certType" column="CERT_TYPE"/>
+        <result property="certNo" column="CERT_NO"/>
+        <result property="userCode" column="USER_CODE"/>
+        <result property="deadline" column="DEADLINE"/>
+        <result property="orgId" column="ORG_ID"/>
+        <result property="dptId" column="DPT_ID"/>
+        <result property="userPassword" column="USER_PASSWORD"/>
+        <result property="userSex" column="USER_SEX"/>
+        <result property="userBirthday" column="USER_BIRTHDAY"/>
+        <result property="userEmail" column="USER_EMAIL"/>
+        <result property="userMobilephone" column="USER_MOBILEPHONE"/>
+        <result property="userOfficetel" column="USER_OFFICETEL"/>
+        <result property="userEducation" column="USER_EDUCATION"/>
+        <result property="userCertificate" column="USER_CERTIFICATE"/>
+        <result property="entrantsDate" column="ENTRANTS_DATE"/>
+        <result property="positionTime" column="POSITION_TIME"/>
+        <result property="financialJobTime" column="FINANCIAL_JOB_TIME"/>
+        <result property="positionDegree" column="POSITION_DEGREE"/>
+        <result property="userAvatar" column="USER_AVATAR"/>
+        <result property="offenIp" column="OFFEN_IP"/>
+        <result property="userSts" column="USER_STS"/>
+        <result property="lastLoginTime" column="LAST_LOGIN_TIME"/>
+        <result property="lastEditPassTime" column="LAST_EDIT_PASS_TIME"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+        <result property="fingerPrint" column="FINGER_PRINT"/>
+        <result property="voicePrint" column="VOICE_PRINT"/>
+        <result property="facePrint" column="FACE_PRINT"/>
+        <result property="gesturePassword" column="GESTURE_PASSWORD"/>
+    </resultMap>
+
+    <select id="selectAllUser" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        SELECT
+            *
+        FROM admin_sm_user
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="getDetailById" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserDetailVo">
+        SELECT
+            u.*,
+            d.dpt_name,
+            o.org_name
+        FROM admin_sm_user u
+                 LEFT JOIN admin_sm_dpt d ON d.dpt_id = u.dpt_id
+                 LEFT JOIN admin_sm_org o ON o.org_id = u.org_id
+        WHERE u.user_id = #{userId}
+    </select>
+    <select id="getDetailByIdAndOrg" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserDetailVo">
+        SELECT
+        u.*,
+        d.dpt_name,
+        o.org_name
+        FROM admin_sm_user u
+        LEFT JOIN admin_sm_dpt d ON d.dpt_id = u.dpt_id
+        LEFT JOIN admin_sm_org o ON o.org_id = u.org_id
+        WHERE u.user_id = #{userId} AND o.ORG_SEQ LIKE #{orgSeq}
+    </select>
+
+    <select id="selectUserSubscribeVoList" resultType="cn.com.yusys.yusp.oca.domain.vo.UserSubscribeVo">
+        SELECT
+            USER_ID AS userNo,
+            USER_NAME
+        FROM
+            admin_sm_user
+    </select>
+
+
+    <select id="countRel" resultType="java.lang.Integer">
+        SELECT SUM(count) from (
+                   SELECT count(0) as count FROM admin_sm_user_mgr_org where user_id = #{userId}
+                   UNION ALL
+                   SELECT count(0) as count FROM admin_sm_user_duty_rel where user_id = #{userId}
+                   UNION ALL
+                   SELECT count(0) as count FROM admin_sm_user_role_rel where user_id = #{userId}
+               ) c
+    </select>
+
+    <update id="updateLoginTime" >
+        UPDATE admin_sm_user SET LAST_LOGIN_TIME= #{lastLoginTime} where USER_ID =#{userId}
+    </update>
+
+    <update id="updateState" >
+        UPDATE admin_sm_user SET USER_STS= #{userState} where USER_ID =#{userId}
+    </update>
+
+    <select id="getUsersForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        SELECT T0.login_code       as USERID,
+        T0.user_name        as USER_NAME,
+        T0.USER_EMAIL       as USER_EMAIL,
+        T0.USER_MOBILEPHONE as USER_MOBILEPHONE,
+        T1.ORG_CODE as ORG_ID
+        FROM admin_sm_user T0
+        JOIN admin_sm_org T1
+        ON (T0.ORG_ID = T1.ORG_ID)
+        JOIN admin_sm_instu T2
+        ON (T1.INSTU_ID = T2.INSTU_ID)
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getUsersByOrgForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        SELECT T0.LOGIN_CODE       as USERID,
+               T0.USER_NAME        as USERNAME,
+               T0.USER_EMAIL       as USEREMAIL,
+               T0.USER_MOBILEPHONE as USERMOBILE,
+               T1.ORG_CODE
+        FROM admin_sm_user T0
+                 JOIN admin_sm_org T1
+                      ON (T0.ORG_ID = T1.ORG_ID)
+        where T0.USER_STS = 'A'
+          AND T1.ORG_CODE = #{orgId, jdbcType = VARCHAR}
+    </select>
+
+    <select id="getUsersByDeptForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        select T1.LOGIN_CODE       as USERID,
+               T1.USER_NAME        as USERNAME,
+               T1.USER_EMAIL       as USEREMAIL,
+               T1.USER_MOBILEPHONE as USERMOBILE
+        from admin_sm_user T1
+                 join admin_sm_dpt T2 on T1.DPT_ID=T2.DPT_ID
+        where T1.USER_STS = 'A' and T2.DPT_CODE = #{deptId, jdbcType = VARCHAR}
+    </select>
+
+    <select id="getUsersByDutyForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        select T1.LOGIN_CODE       as USERID,
+        T1.USER_NAME        as USERNAME,
+        T1.USER_EMAIL       as USEREMAIL,
+        T1.USER_MOBILEPHONE as USERMOBILE
+        from admin_sm_user T1,
+        (select T2.USER_ID
+        from admin_sm_duty T3, admin_sm_user_duty_rel T2
+        where T3.DUTY_ID = T2.DUTY_ID
+        and T3.DUTY_CODE = #{dutyId, jdbcType = VARCHAR}) BB
+        where T1.USER_ID = BB.USER_ID
+        and T1.User_Sts = 'A'
+    </select>
+
+    <select id="getUsersByRoleForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        select T1.LOGIN_CODE       as USERID,
+        T1.USER_NAME        as USERNAME,
+        T1.USER_EMAIL       as USEREMAIL,
+        T1.USER_MOBILEPHONE as USERMOBILE
+        from admin_sm_user T1,
+        (select T2.USER_ID
+        from admin_sm_role T3, admin_sm_user_role_rel T2
+        where T3.ROLE_ID = T2.ROLE_ID
+        and T3.ROLE_CODE = #{roleId, jdbcType = VARCHAR}) BB
+        where T1.USER_ID = BB.USER_ID
+        and T1.User_Sts = 'A'
+    </select>
+
+    <select id="getUserInfoForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        SELECT T0.LOGIN_CODE       as USERID,
+               T0.USER_NAME        as USERNAME,
+               T0.USER_EMAIL       as USEREMAIL,
+               T0.USER_MOBILEPHONE as USERMOBILE
+        FROM admin_sm_user T0
+        where T0.USER_STS = 'A'
+          and T0.LOGIN_CODE = #{userId, jdbcType = VARCHAR}
+    </select>
+
+    <select id="selectRoleAndObj" resultType="cn.com.yusys.yusp.notice.vo.AdminSmReciveVo">
+        select u.org_id, r.role_id from admin_sm_user u
+            LEFT JOIN admin_sm_user_role_rel r
+            on u.user_id = r.user_id
+            where u.user_id = #{userId}
+    </select>
+    <select id="groupDataTenantCount" resultType="java.util.Map">
+        SELECT DATA_TENANT_ID as tenantid ,COUNT(DATA_TENANT_ID) as tenantcount FROM admin_sm_user GROUP BY DATA_TENANT_ID
+    </select>
+    <select id="getUserInfoByCode" resultType="cn.com.yusys.yusp.oca.domain.entity.AdminSmUserEntity">
+        SELECT user_id,user_code,login_code FROM admin_sm_user where user_code=#{userCode} or login_code=#{loginCode}
+    </select>
+    <select id="selectOrgAccessibleUser" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmUserVo">
+        SELECT T0.USER_ID,T0.LOGIN_CODE,T0.USER_NAME,T0.USER_CODE,T0.DPT_ID,T0.USER_SEX,T0.CERT_TYPE,T0.DEADLINE,T0.CERT_NO,T0.ORG_ID,T0.USER_STS,T0.LAST_CHG_USR,T0.LAST_CHG_DT,T1.ORG_NAME
+        FROM admin_sm_user T0
+                 LEFT JOIN  admin_sm_org  T1 ON T0.ORG_ID=T1.ORG_ID
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="listOrgRolesByCode" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmOrgRoleVo">
+        SELECT t2.ORG_ID,t2.ORG_NAME,t4.ROLE_ID,t4.ROLE_NAME
+        FROM
+            admin_sm_user t1
+        LEFT JOIN admin_sm_org t2 ON t1.ORG_ID = t2.ORG_ID
+        LEFT JOIN admin_sm_user_role_rel t3 ON t3.USER_ID = t1.USER_ID
+        LEFT JOIN admin_sm_role t4 ON t4.ORG_ID = t1.ORG_ID AND t4.ROLE_ID = t3.ROLE_ID
+        WHERE t1.LOGIN_CODE = #{loginCode}
+        UNION
+        SELECT t3.ORG_ID,t3.ORG_NAME,t5.ROLE_ID,t5.ROLE_NAME
+        FROM
+            admin_sm_user_mgr_org t1
+        LEFT JOIN admin_sm_user t2 ON t2.USER_ID = t1.USER_ID
+        LEFT JOIN admin_sm_org t3 ON t3.ORG_ID = t1.ORG_ID
+        LEFT JOIN admin_sm_user_role_rel t4 ON t4.USER_ID = t2.USER_ID
+        LEFT JOIN admin_sm_role t5 ON t5.ORG_ID = t1.ORG_ID AND t5.ROLE_ID = t4.ROLE_ID
+        WHERE t2.LOGIN_CODE = #{loginCode}
+    </select>
+</mapper>

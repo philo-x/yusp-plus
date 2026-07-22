@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmBusiFuncDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmBusiFuncEntity" id="adminSmBusiFuncMap">
+        <result property="funcId" column="FUNC_ID"/>
+        <result property="modId" column="MOD_ID"/>
+        <result property="funcName" column="FUNC_NAME"/>
+        <result property="funcDesc" column="FUNC_DESC"/>
+        <result property="funcUrl" column="FUNC_URL"/>
+        <result property="funcUrlJs" column="FUNC_URL_JS"/>
+        <result property="funcUrlCss" column="FUNC_URL_CSS"/>
+        <result property="funcOrder" column="FUNC_ORDER"/>
+        <result property="funcIcon" column="FUNC_ICON"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+
+    <select id="queryPageWithCondition" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmBusiFuncVo">
+        SELECT
+            f.func_id,f.mod_id,f.func_name,f.func_desc,f.func_url,f.func_order,f.func_icon,
+            f.last_chg_dt AS last_chg_dt,f.last_chg_usr,
+            m.mod_name
+        FROM
+            admin_sm_func_mod m RIGHT JOIN
+            admin_sm_busi_func f ON m.mod_id = f.mod_id
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="getFuncInfoWithConditionDao" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmBusiFuncVo">
+        SELECT m.mod_name,f.func_id,f.func_name,f.func_desc,f.func_url
+        FROM
+        admin_sm_func_mod m RIGHT JOIN admin_sm_busi_func f
+        ON m.mod_id = f.mod_id  ${ew.customSqlSegment}
+    </select>
+
+</mapper>

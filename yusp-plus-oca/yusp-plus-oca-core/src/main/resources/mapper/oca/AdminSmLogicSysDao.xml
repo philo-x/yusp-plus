@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmLogicSysDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmLogicSysEntity" id="adminSmLogicSysMap">
+        <result property="sysId" column="SYS_ID"/>
+        <result property="authId" column="AUTH_ID"/>
+        <result property="sysVersion" column="SYS_VERSION"/>
+        <result property="sysName" column="SYS_NAME"/>
+        <result property="sysDesc" column="SYS_DESC"/>
+        <result property="sysSts" column="SYS_STS"/>
+        <result property="isSso" column="IS_SSO"/>
+        <result property="sysCode" column="SYS_CODE"/>
+        <result property="i18nKey" column="I18N_KEY"/>
+    </resultMap>
+
+    <select id="getAdminSmLogicSys" parameterType="cn.com.yusys.yusp.oca.domain.bo.AdminSmLogicSysBo"
+            resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmLogicSysVo">
+        SELECT
+            s.SYS_ID,s.AUTH_ID,s.IS_SSO,s.SYS_CODE,s.SYS_DESC,s.SYS_NAME,
+            s.SYS_STS,s.SYS_VERSION,f.FUNC_ID,f.FUNC_NAME
+        FROM admin_sm_logic_sys s
+        LEFT JOIN
+            (SELECT m.FUNC_ID,b.FUNC_NAME,m.SYS_ID FROM admin_sm_menu m
+            LEFT JOIN admin_sm_busi_func b ON m.FUNC_ID = b.FUNC_ID
+            WHERE m.MENU_NAME='首页') f
+        ON s.SYS_ID = f.SYS_ID
+        <if test="adminSmLogicSysBo.sysName != null and adminSmLogicSysBo.sysName != ''">
+            WHERE s.SYS_NAME LIKE CONCAT(CONCAT('%',#{adminSmLogicSysBo.sysName}),'%')
+        </if>
+
+    </select>
+
+</mapper>

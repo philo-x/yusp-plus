@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmDptDao">
+    <select id="selectAllDpt" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDptVo">
+        SELECT
+            d.*,
+            u.USER_NAME AS LAST_CHG_NAME,
+            o.ORG_NAME,
+            p.DPT_NAME AS UP_DPT_NAME
+        FROM
+            admin_sm_dpt d
+                LEFT JOIN admin_sm_user u ON u.USER_ID = d.LAST_CHG_USR
+                LEFT JOIN admin_sm_org o ON o.ORG_ID = d.ORG_ID
+                LEFT JOIN admin_sm_dpt p ON d.UP_DPT_ID = p.DPT_ID
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="getDeptsForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDptVo">
+        select T1.dpt_code as dptId, T1.dpt_name as dptName from admin_sm_dpt T1
+        ${ew.customSqlSegment}
+    </select>
+    <select id="groupDataTenantCount" resultType="java.util.Map">
+        SELECT DATA_TENANT_ID as tenantid ,COUNT(DATA_TENANT_ID) as tenantcount FROM admin_sm_dpt GROUP BY DATA_TENANT_ID
+    </select>
+    <select id="selectOrgAccessible" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDptVo">
+        SELECT T0.DPT_ID,T0.DPT_CODE,T0.DPT_NAME,T0.ORG_ID,T0.UP_DPT_ID,T0.DPT_STS,T0.LAST_CHG_USR,T0.LAST_CHG_DT,T1.ORG_NAME
+        FROM admin_sm_dpt T0
+                 LEFT JOIN  admin_sm_org  T1 ON T0.ORG_ID=T1.ORG_ID
+            ${ew.customSqlSegment}
+    </select>
+</mapper>

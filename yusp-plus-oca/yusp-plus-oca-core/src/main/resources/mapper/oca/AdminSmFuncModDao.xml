@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmFuncModDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmFuncModEntity" id="adminSmFuncModMap">
+        <result property="modId" column="MOD_ID"/>
+        <result property="modName" column="MOD_NAME"/>
+        <result property="modDesc" column="MOD_DESC"/>
+        <result property="isOuter" column="IS_OUTER"/>
+        <result property="isApp" column="IS_APP"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="userKey" column="USER_KEY"/>
+        <result property="pwdKey" column="PWD_KEY"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+
+    <select id="queryPageWithCondition" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmFuncModVo">
+        SELECT
+            m.mod_id,m.mod_name,m.mod_desc,m.is_outer,m.is_app,m.user_name,m.password,
+            m.user_key,m.pwd_key,m.last_chg_dt AS
+            last_chg_dt,m.last_chg_usr
+        FROM admin_sm_func_mod m
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

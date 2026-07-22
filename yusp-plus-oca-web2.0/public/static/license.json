@@ -1,0 +1,20 @@
+{
+	"Extends":[
+		
+	],
+	"build-time":"Wed Mar 30 15:22:17 CST 2022",
+	"complie_date":"2018-02-12",
+	"contract_code":"HT2022-0156",
+	"customer_name":"长沙银行股份有限公司",
+	"license_code":"0000024507",
+	"license_end_time":"2080-03-31",
+	"license_start_time":"2022-03-21",
+	"license_type":"客户销售许可证",
+	"product_code":"0000001182",
+	"product_name_en-us":"YUFP",
+	"product_name_zh-cn":"宇信科技统一前端平台",
+	"validate-code":"13A79F7FFB95D67367B8747B5FB55844486CABAA62A2A29CDB89B3A9A91EB2C4",
+	"version_major":"1",
+	"version_publish":"1",
+	"version_sub":"0"
+}

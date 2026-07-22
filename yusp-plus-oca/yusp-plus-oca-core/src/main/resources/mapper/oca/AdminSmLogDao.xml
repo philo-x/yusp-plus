@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmLogDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmLogEntity" id="adminSmLogMap">
+        <result property="logId" column="LOG_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="operTime" column="OPER_TIME"/>
+        <result property="operObjId" column="OPER_OBJ_ID"/>
+        <result property="beforeValue" column="BEFORE_VALUE"/>
+        <result property="afterValue" column="AFTER_VALUE"/>
+        <result property="operFlag" column="OPER_FLAG"/>
+        <result property="logTypeId" column="LOG_TYPE_ID"/>
+        <result property="content" column="CONTENT"/>
+        <result property="orgId" column="ORG_ID"/>
+        <result property="loginIp" column="LOGIN_IP"/>
+    </resultMap>
+
+    <select id="pageLogByCondition" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmLogVo">
+        SELECT
+            log.*,
+            u.USER_NAME,
+            o.ORG_NAME
+        FROM
+            admin_sm_log log
+                LEFT JOIN admin_sm_user u ON log.USER_ID = u.USER_ID
+                LEFT JOIN admin_sm_org o ON log.ORG_ID = o.ORG_ID
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="findLogByLogForm" resultType="cn.com.yusys.yusp.oca.domain.entity.AdminSmLogEntity">
+        SELECT
+            log.*,
+            u.USER_NAME,
+            o.ORG_NAME
+        FROM
+            admin_sm_log log
+                LEFT JOIN admin_sm_user u ON log.USER_ID = u.USER_ID
+                LEFT JOIN admin_sm_org o ON log.ORG_ID = o.ORG_ID
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

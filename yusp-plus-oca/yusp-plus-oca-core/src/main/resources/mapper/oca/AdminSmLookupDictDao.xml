@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmLookupDictDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmLookupDictEntity" id="adminSmLookupDictMap">
+        <result property="lookupItemId" column="LOOKUP_ITEM_ID"/>
+        <result property="lookupCode" column="LOOKUP_CODE"/>
+        <result property="lookupName" column="LOOKUP_NAME"/>
+        <result property="lookupTypeId" column="LOOKUP_TYPE_ID"/>
+        <result property="lookupTypeName" column="LOOKUP_TYPE_NAME"/>
+        <result property="upLookupItemId" column="UP_LOOKUP_ITEM_ID"/>
+        <result property="lookupItemCode" column="LOOKUP_ITEM_CODE"/>
+        <result property="lookupItemName" column="LOOKUP_ITEM_NAME"/>
+        <result property="lookupItemComment" column="LOOKUP_ITEM_COMMENT"/>
+        <result property="lookupItemOrder" column="LOOKUP_ITEM_ORDER"/>
+        <result property="instuId" column="INSTU_ID"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+
+
+</mapper>

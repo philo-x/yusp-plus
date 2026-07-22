@@ -1,0 +1,25 @@
+/*  top-left布局start */
+.blue .yu-frame-menu-top-left .yu-frame-top-left-bar {background-color: #2877ff;}
+.blue .yu-frame-menu-top-left .yu-frame-left-menu .top-menu .icon {color: #2877ff;}
+/* top-left布局end  */
+
+/* top-left布局start 2.0独有 */
+.orange .yu-frame-menu-top-left .yu-frame-top-left-bar {background-color: #E27C0A;}
+.orange .yu-frame-menu-top-left .yu-frame-left-menu .top-menu .icon {color: #E27C0A;}
+.orange .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-menu-item.is-active {background: #E27C0A;}
+.orange .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-submenu__title:not(.is-active):hover,
+.orange .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-menu-item:not(.is-active):hover,
+.orange .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-submenu .el-menu-item:not(.is-active):hover {background: rgba(226, 125, 10, 0.1);}
+.orange .yu-frame-menu-top-left .yu-switch-show-left-menu {background: #E27C0A;}
+/* top-left布局end */
+
+/* top-left布局start 2.0独有 */
+.purple .yu-frame-menu-top-left .yu-frame-top-left-bar {background-color: #5557B9;}
+.purple .yu-frame-menu-top-left .yu-frame-left-menu .top-menu .icon {color: #5557B9;}
+.purple .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-menu-item.is-active {background: #5557B9;}
+.purple .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-submenu__title:not(.is-active):hover,
+.purple .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-menu-item:not(.is-active):hover,
+.purple .yu-frame-menu-top-left .yu-frame-left-menu .menu-item .el-submenu .el-menu-item:not(.is-active):hover {background: rgba(85, 87, 185, 0.1);}
+.purple .yu-frame-menu-top-left .yu-frame-left-menu .yu-frame-left-menu-content .yu-switch-show-left-menu {background: #5557B9;}
+.purple .yu-frame-menu-top-left .yu-switch-show-left-menu {background: #5557B9;}
+/* top-left布局end */

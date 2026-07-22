@@ -1,0 +1,6 @@
+<mxEditor>
+	<include name="libs/mxgraph/config/wfeditor-commons.xml"/>
+	<mxDefaultToolbar as="toolbar">
+		<include name="libs/mxgraph/config/wftoolbar-commons.xml"/>
+	</mxDefaultToolbar>
+</mxEditor>

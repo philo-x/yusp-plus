@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.com.yusys.yusp</groupId>
+        <artifactId>yusp-plus</artifactId>
+        <version>V4.x.x-SNAPSHOT</version>
+    </parent>
+    <artifactId>yusp-plus-uaa</artifactId>
+    <description>yusp-plus-uaa 工程</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>yusp-plus-uaa-core</module>
+    </modules>
+</project>

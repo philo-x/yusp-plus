@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmUserDutyRelDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmUserDutyRelEntity" id="adminSmUserDutyRelMap">
+        <result property="userDutyRelId" column="USER_DUTY_REL_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="dutyId" column="DUTY_ID"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+    <select id="findUserDutyRelsByUser" resultType="java.lang.String">
+        select duty_id from admin_sm_user_duty_rel where user_id=#{userId}
+    </select>
+
+
+</mapper>

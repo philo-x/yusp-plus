@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmAuthRecoDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmAuthRecoEntity" id="adminSmAuthRecoMap">
+        <result property="authRecoId" column="AUTH_RECO_ID"/>
+        <result property="sysId" column="SYS_ID"/>
+        <result property="authobjType" column="AUTHOBJ_TYPE"/>
+        <result property="authobjId" column="AUTHOBJ_ID"/>
+        <result property="authresType" column="AUTHRES_TYPE"/>
+        <result property="authresId" column="AUTHRES_ID"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+        <result property="menuId" column="MENU_ID"/>
+    </resultMap>
+
+    <select id="findMenuTreeList" parameterType="string" resultType="cn.com.yusys.yusp.oca.domain.vo.MenuVo">
+            SELECT m.MENU_ID AS ID, m.MENU_NAME, '0' AS UP_MENU_ID, 'M' AS MENU_TYPE,
+		m.MENU_ID
+		FROM
+		(SELECT DISTINCT m1.MENU_ID,m1.MENU_NAME,m1.MENU_ORDER,m1.UP_MENU_ID
+		FROM admin_sm_menu m1
+		LEFT JOIN admin_sm_res_contr t ON m1.FUNC_ID = t.FUNC_ID
+		WHERE m1.SYS_ID =#{sysId,jdbcType=VARCHAR}
+		AND t.CONTR_ID IN (SELECT CONTR_ID FROM admin_sm_data_auth) ORDER BY
+		m1.UP_MENU_ID,m1.MENU_ORDER) m
+    </select>
+
+    <select id="findContrTreeList" parameterType="string" resultType="cn.com.yusys.yusp.oca.domain.vo.MenuVo">
+        SELECT t.CONTR_ID AS ID, t.CONTR_NAME AS MENU_NAME,m.MENU_ID AS
+		UP_MENU_ID,'C' AS MENU_TYPE, m.MENU_ID
+		FROM admin_sm_res_contr t
+		LEFT JOIN admin_sm_menu m ON m.FUNC_ID = t.FUNC_ID
+		WHERE m.SYS_ID = #{sysId,jdbcType=VARCHAR} AND t.CONTR_ID IN
+		(SELECT CONTR_ID FROM admin_sm_data_auth)
+    </select>
+
+    <select id="findDataAuthTreeList" parameterType="string"
+            resultType="cn.com.yusys.yusp.oca.domain.vo.MenuVo">
+        SELECT d.AUTH_ID AS ID, d.AUTH_TMPL_NAME AS MENU_NAME, d.CONTR_ID AS
+		UP_MENU_ID, 'D' AS MENU_TYPE,d.MENU_ID
+		FROM (SELECT t.AUTH_ID, t.CONTR_ID, t1.AUTH_TMPL_NAME, t2.MENU_ID
+		FROM admin_sm_data_auth t LEFT JOIN
+		(SELECT t.CONTR_ID, m.MENU_ID
+		FROM admin_sm_res_contr t
+		LEFT JOIN admin_sm_menu m
+		ON m.FUNC_ID = t.FUNC_ID
+		WHERE m.SYS_ID = #{sysId,jdbcType=VARCHAR}
+		AND t.CONTR_ID IN
+		(SELECT CONTR_ID FROM admin_sm_data_auth)) t2 ON t2.CONTR_ID = t.CONTR_ID
+		LEFT JOIN admin_sm_data_auth_tmpl t1 ON t.AUTH_TMPL_ID =
+		t1.AUTH_TMPL_ID) d
+    </select>
+
+    <select id="getByMenuIdWithTmpl" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminRecoWithTmplVo">
+		SELECT
+			r.AUTH_RECO_ID,
+			r.AUTHOBJ_ID,
+			r.MENU_ID,
+			t.AUTH_TMPL_NAME,
+			t.AUTH_TMPL_ID
+		FROM
+			admin_sm_auth_reco r
+		LEFT JOIN admin_sm_data_auth_tmpl t ON r.AUTHRES_ID = t.AUTH_TMPL_ID
+			${ew.customSqlSegment}
+	</select>
+
+    <select id="getDataTmplControl" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminDataTmplControlVo">
+		SELECT
+			r.auth_reco_id as auth_id,
+			r.sys_id,
+			c.contr_id,
+			c.contr_url,
+			t.auth_tmpl_id,
+			t.sql_string,
+			t.sql_name,
+			t.priority
+		FROM admin_sm_auth_reco r
+			LEFT JOIN admin_sm_data_auth_tmpl t
+		ON r.authres_id = t.auth_tmpl_id
+			LEFT JOIN admin_sm_res_contr c
+		ON r.menu_id = c.contr_id
+			${ew.customSqlSegment}
+	</select>
+
+	<select id="selectResContrIdByMenuIds" resultType="java.lang.String">
+		select DISTINCT AUTHRES_ID from admin_sm_auth_reco ${ew.customSqlSegment}
+	</select>
+</mapper>

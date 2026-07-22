@@ -1,0 +1,204 @@
+[class*=" el-icon-"],
+[class^=el-icon-] {
+  font-family: initial !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  line-height: inherit;
+}
+
+[class*=" el-icon-"]::after,
+[class^=el-icon-]::after,
+[class*=" el-icon-"]::before,
+[class^=el-icon-]::before {
+  font-family: element-icons !important;
+}
+
+[class^="el-icon-yx-"]::before,
+[class*=" el-icon-yxn-"]::before,
+[class^="el-icon-yx-"]::after,
+[class*=" el-icon-yx-"]::after {
+  font-family: 'icomoon' !important;
+}
+
+
+.el-menu-item [class^=el-icon-] {
+  margin-right: 0;
+}
+
+/* 2020/6/17 */
+/* .el-input__suffix {
+  line-height: 1;
+} */
+
+.panel-none-padding .yu-base-panel-content {
+  padding-bottom: 0;
+}
+/* 2020/6/17 --end */
+
+.menu-vertical.menu-vertical-left .el-menu-item .el-submenu__icon-arrow,
+.el-menu .el-submenu__title .el-submenu__icon-arrow {
+  line-height: 1;
+}
+.yu-excel-export-margin{margin-left:10px; margin-right: 10px;display: inline-block;}
+/* .el-form-search .adjust{bottom: 24px;} */
+
+/* 2020/6/18 --begin */
+.yu-base-panel.default .yu-base-panel-collapse .icon-filter {margin: 2px 0 10px 10px;}
+.yu-base-panel-collapse .icon-filter {margin: 10px 0 10px 10px;}
+.el-dialog-x__footer {font-size: 0;}
+.yu-base-toolbar {font-size: 0;padding-bottom: 24px;}
+/* 2020/6/18 --bend*/
+
+/* .el-form-x-footer{text-align: center;} */
+.el-table-x .el-table-column--selection .el-checkbox {
+  margin-left: 4px;
+}
+.el-table-x .el-table-column--selection .cell{padding-right: 0;}
+.el-icon-yx-calendar::before{font-family: 'icomoon'!important}
+.el-submenu [class^=el-icon-]{margin-right: 0;}
+.el-dialog__header{text-align: left}
+.el-message-box--center .el-message-box__title{justify-content: left}
+
+/* 左右布局高度的计算 */
+.frame-height {
+  height: calc(100vh - 156px);
+}
+.compact .frame-height {
+  height: calc(100vh - 115px);
+}
+
+.yu-icons>a:link, .yu-icons>a:visited{
+  float: left;
+  width: 22px;
+  height: 22px;
+  font-size: 16px;
+  line-height: 22px;
+  overflow: hidden;
+  background-color: #fff;
+  text-align: center;
+  color: #666;
+  font-weight: normal;
+  border: 1px #ddd solid;
+  border-radius: 3px;
+  margin: 5px;
+  transition: .2s;
+}
+
+.blue .yu-icons>a:hover {
+  color: #2878FF;
+  border-color: #2878FF;
+}
+
+.orange .yu-icons>a:hover {
+  color: #FB8D12;
+  border-color: #FB8D12;
+}
+
+.purple .yu-icons>a:hover {
+  color: #5557B9;
+  border-color: #5557B9;
+}
+
+.no-data {
+  position: relative;
+  text-align: center;
+}
+
+
+/* 控制点管理 数据权限管理等 树功能样式 sta */
+.el-tree-node__content [class*="yu-treeMenuType"]{
+  border-radius: 4px;
+  margin-right: 12px;
+  color: #ffffff;
+  width: 18px;
+  display: inline-block;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  padding: 0
+}
+.el-tree-node__content .yu-treeMenuType {
+  background-color: #4a5863;
+}
+.el-tree-node__content .yu-treeMenuTypeM {
+  background-color: #2877ff;
+}
+.el-tree-node__content .yu-treeMenuTypeF {
+  background-color: #DC25C0;
+}
+.el-tree-node__content  .yu-treeMenuTypeC{
+  background-color: #E6AF50;
+}
+.el-tree-node__content  .yu-treeMenuTypeD{
+  background-color: #50A6BD;
+}
+/* 控制点管理 数据权限管理等 树功能样式 end */
+
+/* 弹框查询列样式 */
+.dialog-search {
+  margin-bottom: 20px;
+  text-align: right;
+}
+.compact .dialog-search {
+  margin-bottom: 16px;
+}
+.dialog-search .el-checkbox{
+  margin-right: 24px;
+}
+.dialog-search .el-checkbox__label{
+  padding-left: 10px;
+  vertical-align: middle;
+}
+.dialog-search .el-button+.el-button {
+  margin-left: 7px;
+}
+.dialog-search .form-item {
+  width: 200px;
+  margin-left: 7px;
+}
+.dialog-search .el-input{
+  width: 200px;
+}
+.dialog-search .el-input__suffix,
+.dialog-search .el-input__icon.el-icon{
+  line-height: 36px;
+}
+.compact .dialog-search .el-input__suffix,
+.compact .dialog-search .el-input__icon.el-icon{
+  line-height: 28px;
+}
+.dialog-btn{
+  margin-bottom: 16px;
+  text-align: right;
+}
+.dialog-btn .btn{
+  display: inline-block;
+  margin-right: 8px
+}
+.compact .dialog-btn{
+  margin-bottom: 16px;
+}
+.compact.dialog-btn .btn{
+  margin-right: 6px;
+}
+ /* 控制点弹框头部checkbox样式 */
+.control-dialog thead .el-table-column--selection .cell{
+  display: none;
+}
+
+.dialog-search .el-input__suffix {
+  line-height: 36px;
+}
+
+/* 弹出提示框位置偏下 */
+.el-message__closeBtn{
+  top: 0px;
+}
+.role-user-xdialog .el-form-item{
+  height: 36px;
+  line-height: 36px;
+}
+.compact .role-user-xdialog .el-form-item{
+  height: 28px;
+  line-height: 28px;
+}

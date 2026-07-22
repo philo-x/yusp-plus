@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmAuthInfoDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmAuthInfoEntity" id="adminSmAuthInfoMap">
+        <result property="authId" column="AUTH_ID"/>
+        <result property="authName" column="AUTH_NAME"/>
+        <result property="beanName" column="BEAN_NAME"/>
+        <result property="authRemark" column="AUTH_REMARK"/>
+    </resultMap>
+
+
+</mapper>

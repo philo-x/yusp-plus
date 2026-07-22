@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="yu-frame-html">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= webpackConfig.name %></title>
+    <style>html,body{width:100%;height:100%;background-color:white;margin:0px;padding:0px;overflow:hidden;}#app{width:100%;height:100%;margin:0px;padding:0px;overflow:hidden;}#app>div{width:100%;height:100%;margin:0px;padding:0px;overflow:hidden;}.loader-wrapper{position:fixed;top:0;left:0;z-index:999999;width:100%;height:100%;}.loader{position:relative;top:50%;left:50%;z-index:1001;display:block;background:url('icon.png') no-repeat center;background-size:88px auto;margin:-75px 0 0 -75px;width:150px;height:150px;border-radius:50%;border:3px solid transparent;}.loader-wrapper .load_title{margin-top:128px;width:100%;text-align:center;font-size:16px;color:#444;}</style>
+  </head>
+  <body class="yu-frame-body">
+    <div id="app" class="yu-frame-root">
+      <div class="loader-wrapper">
+		    <div class="loader">
+          <div class="load_title">正在加载,请稍后...</div>
+        </div>
+      </div>
+    </div>
+    <script src="<%= BASE_URL %>static/libs/vue.min.js"></script>
+    <script src="<%= BASE_URL %>static/libs/vue-router.min.js"></script>
+    <script src="<%= BASE_URL %>static/libs/vuex.min.js"></script>
+    <script src="<%= BASE_URL %>static/libs/axios.min.js"></script>
+    <!-- 下列导入仅为示例工程各示例使用，需要根据实际需要调整 -->
+    <!-- md5加密，主要用于文件上传
+    <script src="<%= BASE_URL %>static/md5/spark-md5.min.js" async defer></script> -->
+    <!-- excel前端导出 -->
+    <script src="<%= BASE_URL %>static/libs/xlsx.full.min.js" async defer></script>
+    <!-- jquery用于测试兼容
+    <script src="<%= BASE_URL %>static/libs/jquery.min.js" async defer></script> -->
+    <!-- vue拖拽排序
+    <script src="<%= BASE_URL %>static/vuedraggble/sortable.js"></script>
+    <script src="<%= BASE_URL %>static/vuedraggble/vuedraggable.min.js"></script> -->
+    <!-- 词云
+    <script src="<%= BASE_URL %>static/wordcloud/wordcloud2.js" async defer></script>
+    <script src="<%= BASE_URL %>static/wordcloud/worldcloud2Plugin.js" async defer></script> -->
+    <!-- 思维导图
+    <script src="<%= BASE_URL %>static/mindMap.js" async defer></script> -->
+    <!-- 统计图表 -->
+    <script src="<%= BASE_URL %>static/echarts/echarts.min.js" async defer></script>
+    <!-- 富文本
+    <script src="<%= BASE_URL %>static/tinymce-4.5.9/tinymce.min.js" async defer></script> -->
+    <!-- 时间格式化
+    <script src="<%= BASE_URL %>static/fullcalendar/moment.min.js" async defer></script> -->
+    <!-- 日历
+    <script src="<%= BASE_URL %>static/fullcalendar/fullcalendar.min.js" async defer></script> -->
+    <!-- 工作流依赖js -->
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/init.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/mxClient.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/sanitizer.min.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/editorUi.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/editor.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/sidebar.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/graph.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/format.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/shapes.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/actions.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/menus.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/toolbar.js"></script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/libs/dialogs.js"></script>
+  </body>
+</html>

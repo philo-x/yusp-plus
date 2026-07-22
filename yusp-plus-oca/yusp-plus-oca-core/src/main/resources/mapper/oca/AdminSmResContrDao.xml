@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmResContrDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmResContrEntity" id="adminSmResContrMap">
+        <result property="contrId" column="CONTR_ID"/>
+        <result property="funcId" column="FUNC_ID"/>
+        <result property="contrCode" column="CONTR_CODE"/>
+        <result property="contrName" column="CONTR_NAME"/>
+        <result property="contrUrl" column="CONTR_URL"/>
+        <result property="contrRemark" column="CONTR_REMARK"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+        <result property="methodType" column="METHOD_TYPE"/>
+        <result property="encodeCheck" column="ENCODE_CHECK"/>
+        <result property="nonceCheck" column="NONCE_CHECK"/>
+    </resultMap>
+    <!--查询控制点信息 -->
+    <select id="queryPageWithCondition" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmResContrVo">
+        select
+                c.contr_id,c.func_id,c.contr_code,c.contr_name,
+                c.contr_url,c.method_type,c.last_chg_usr,
+                c.last_chg_dt,c.contr_remark,
+                c.ENCODE_CHECK,c.NONCE_CHECK,
+                m.menu_id,m.menu_name
+            from admin_sm_res_contr c
+            LEFT JOIN admin_sm_menu m
+            ON c.func_id = m.func_id ${ew.customsqlsegment}
+    </select>
+
+    <select id="getAdminSmContrList" resultType="cn.com.yusys.yusp.commons.session.user.impl.ControlImpl">
+        SELECT DISTINCT
+        t_resctrl.func_id,t_resctrl.contr_code,t_resctrl.contr_name,t_resctrl.contr_url,t_resctrl.method_type,t_reco.sys_id
+        FROM
+        admin_sm_auth_reco t_reco
+        JOIN (
+        SELECT t_user.user_id user_id,
+        t_user.org_id org_id,t_user.dpt_id dpt_id,t_roelrel.role_id role_id FROM
+        admin_sm_user t_user LEFT JOIN
+        admin_sm_user_role_rel t_roelrel ON (t_user.user_id=t_roelrel.user_id)
+        ${ew.customSqlSegment}
+        ) t_authobj
+        ON(
+        (t_reco.authobj_type='U' AND t_reco.authobj_id = t_authobj.user_id) OR
+        (t_reco.authobj_type='R' AND t_reco.authobj_id = t_authobj.role_id) OR
+        (t_reco.authobj_type='G' AND t_reco.authobj_id = t_authobj.org_id) OR
+        (t_reco.authobj_type='D' AND t_reco.authobj_id = t_authobj.dpt_id)
+        )
+        JOIN admin_sm_res_contr t_resctrl ON (t_reco.authres_type ='C' AND t_reco.authres_id=t_resctrl.contr_id)
+    </select>
+
+    <select id="selectAuthTree" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmAuthTreeVo">
+        SELECT
+            r.AUTH_RECO_ID,
+            r.AUTHRES_ID,
+            c.contr_name AS node_name,
+            r.menu_id AS up_tree_id,
+            r.authres_type
+        FROM admin_sm_auth_reco r
+        INNER JOIN admin_sm_res_contr c
+        ON r.authres_id = c.contr_id
+        WHERE r.authobj_id = #{id}
+        <if test="dataTenantId != null and dataTenantId !=''">
+            and r.data_tenant_id = #{dataTenantId}
+        </if>
+    </select>
+
+    <select id="selectControlImplList" resultType="cn.com.yusys.yusp.commons.session.user.impl.ControlImpl">
+        select
+            c.contr_code,
+            c.contr_name,
+            c.contr_Url,
+            c.func_id,
+            c.method_type,
+            r.sys_id
+        from admin_sm_res_contr c
+        LEFT JOIN admin_sm_auth_reco r
+        on c.contr_id = r.authres_id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectAuthTreePage" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmAuthTreeVo">
+        SELECT
+            r.AUTH_RECO_ID,
+            r.AUTHRES_ID,
+            c.contr_name AS node_name,
+            r.menu_id AS up_tree_id,
+            r.authres_type
+        FROM admin_sm_auth_reco r
+        INNER JOIN admin_sm_res_contr c
+        ON r.authres_id = c.contr_id
+        ${ew.customSqlSegment}
+    </select>
+    <!--查询已授权的控制点信息 -->
+    <select id="queryAuthContrPage" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmResContrVo">
+        SELECT
+            c.contr_id,c.func_id,c.contr_code,c.contr_name,
+            c.contr_url,c.method_type,c.last_chg_usr,
+            c.last_chg_dt,c.contr_remark,
+            m.menu_id,m.menu_name
+        FROM admin_sm_auth_reco a
+        INNER JOIN admin_sm_res_contr c ON a.authres_id = c.contr_id
+        LEFT JOIN admin_sm_menu m ON c.func_id = m.func_id
+        ${ew.customsqlsegment}
+    </select>
+    <select id="queryRequestCheckList" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmResContrVo">
+        SELECT contr_url,method_type,encode_check,nonce_check
+        FROM admin_sm_res_contr
+        WHERE (ENCODE_CHECK='01' OR NONCE_CHECK='01') AND method_type = 'POST'
+    </select>
+</mapper>

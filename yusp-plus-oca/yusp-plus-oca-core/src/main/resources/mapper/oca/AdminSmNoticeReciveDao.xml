@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.notice.dao.AdminSmNoticeReciveDao">
+    <select id="selectByCondition" resultType="cn.com.yusys.yusp.notice.entity.AdminSmNoticeReciveEntity">
+        select
+            a.RECIVE_ID,
+            a.NOTICE_ID
+        from admin_sm_notice_recive a
+        LEFT JOIN admin_sm_notice_recive b
+        ON a.NOTICE_ID = b.NOTICE_ID
+            ${ew.customSqlSegment}
+    </select>
+    <select id="selectRoles" resultType="cn.com.yusys.yusp.oca.domain.entity.AdminSmRoleEntity">
+        select
+            ro.ROLE_ID,
+            ro.ROLE_NAME
+        FROM admin_sm_role ro
+        LEFT JOIN admin_sm_notice_recive re
+        ON (CASE WHEN re.RECIVE_OGJ_ID = 'NA' THEN 1=1 ELSE re.RECIVE_OGJ_ID = ro.ROLE_ID END)
+        ${ew.customSqlSegment}
+    </select>
+    <select id="selectOrgs" resultType="cn.com.yusys.yusp.oca.domain.entity.AdminSmOrgEntity">
+        select
+            o.ORG_ID,
+            o.ORG_NAME
+        FROM admin_sm_org o
+        LEFT JOIN admin_sm_notice_recive re
+        ON (CASE WHEN re.RECIVE_OGJ_ID = 'NA' THEN 1=1 ELSE re.RECIVE_OGJ_ID = o.ORG_ID END)
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectReciveIdAndName" resultType="cn.com.yusys.yusp.notice.vo.AdminSmNoticeReciveVo">
+        select
+            re.NOTICE_ID,
+            re.RECIVE_TYPE,
+            re.RECIVE_OGJ_ID,
+            ro.ROLE_ID,
+            ro.ROLE_NAME,
+            org.ORG_ID,
+            org.ORG_NAME
+        from admin_sm_notice_recive re
+        LEFT JOIN admin_sm_role ro
+        on re.RECIVE_OGJ_ID = ro.ROLE_ID
+        LEFT JOIN admin_sm_org org
+        on re.RECIVE_OGJ_ID = org.ORG_ID
+        where re.NOTICE_ID = #{noticeId}
+    </select>
+</mapper>

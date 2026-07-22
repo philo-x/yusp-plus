@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmCrelStraDao">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmCrelStraEntity" id="adminSmCrelStraMap">
+        <result property="crelId" column="CREL_ID"/>
+        <result property="sysId" column="SYS_ID"/>
+        <result property="crelKey" column="CREL_KEY"/>
+        <result property="crelName" column="CREL_NAME"/>
+        <result property="enableFlag" column="ENABLE_FLAG"/>
+        <result property="crelDetail" column="CREL_DETAIL"/>
+        <result property="crelDescribe" column="CREL_DESCRIBE"/>
+        <result property="actionType" column="ACTION_TYPE"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+        <result property="sysDefault" column="SYS_DEFAULT"/>
+    </resultMap>
+
+    <sql id="baseColumn">
+        CREL_ID, SYS_ID, CREL_KEY, CREL_NAME, ENABLE_FLAG, CREL_DETAIL,CREL_DESCRIBE, ACTION_TYPE, LAST_CHG_USR, LAST_CHG_DT, SYS_DEFAULT
+    </sql>
+
+    <select id="getAll" resultMap="adminSmCrelStraMap">
+        SELECT
+        <include refid="baseColumn"/>
+        from admin_sm_crel_stra
+    </select>
+
+    <insert id="inserts" parameterType="cn.com.yusys.yusp.oca.domain.entity.AdminSmCrelStraEntity">
+        insert into admin_sm_crel_stra(<include refid="baseColumn"/>)
+        values
+        <foreach collection="list" item="item" open="" separator="," close="">
+            (#{item.crelId}, #{item.sysId}, #{item.crelKey}, #{item.crelName}, #{item.enableFlag},
+            #{item.crelDetail}, #{item.actionType}, #{item.lastChgUsr}, #{item.lastChgDt}, #{item.sysDefault})
+        </foreach>
+    </insert>
+</mapper>

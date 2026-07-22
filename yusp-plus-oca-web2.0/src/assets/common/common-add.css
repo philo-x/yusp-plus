@@ -1,0 +1,263 @@
+.yu-frame-tab-box>div>div {
+  background: #fff;
+}
+.yu-logo {
+  padding-left: 148px;
+}
+.yu-dashboard-container{
+  background-color: #F2F2F2!important;
+}
+.el-dialog-x__footer{
+  padding-bottom: 20px;
+  border-radius: 0 0 4px 4px;
+}
+@media screen and (max-width: 1330px) {
+  .el-button--text{padding-left: 0;padding-right: 0;}
+}
+
+/* panel 区域自定义查询样式 sta */
+.yu-base-panel-right-content .custom-panel-search {
+  display: inline-block;
+  float: left;
+  width: 210px;
+}
+
+.custom-panel-search .el-cascader {
+  line-height: inherit;
+}
+
+.control-cascader .el-cascader-node__postfix {
+  top: 0
+}
+
+/* panel 区域自定义查询样式 end */
+
+/* yu-autocomplete 在表单项中样式调整 sta*/
+.yu-xform .el-form-item__content[aria-ctype="yu-autocomplete"] {
+  height: 36px;
+}
+
+.el-form-details input {
+  border: none;
+}
+
+.el-form-item__content .el-autocomplete {
+  width: 100%;
+}
+ /* input禁用样式层级比错误验证高 */
+.el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-textarea__inner {
+  border-color: #ff4949!important;
+}
+.el-input.is-disabled .el-input__inner::placeholder {
+  color: #c5c5c5;
+}
+/* yu-autocomplete 在表单项中样式调整 end*/
+
+/* yu-toolBar 在panel中样式调整 sta*/
+.yu-base-panel-right-content .yu-base-toolbar{
+  margin-left: 20px;
+}
+.yu-base-panel-collapse{
+  padding-left: 0;
+}
+.yu-base-panel-collapse .el-button{
+  padding-left: 10px;
+}
+/* yu-toolBar 在panel中样式调整 end*/
+
+/* panel 在dialog中的样式调整 sta*/
+.el-dialog-x__wrapper yu-base-panel-collapse{
+ line-height: 42px;
+}
+/* panel 在dialog中的样式调整 end*/
+
+
+/* UI 2.0 中补充样式-需回归到 yufp-web sta*/
+.el-combo-tree .el-popover{
+  padding: 10px 0;
+}
+.panel-custom-left .el-combo-tree {
+  line-height: 36px;
+  margin: 10px 0;
+}
+.el-combo-tree.el-select .el-input__icon.el-icon{
+  color: #949494;
+}
+.el-dialog-x__body .yu-base-panel-content{
+  padding: 20px;
+}
+.el-dialog-x__body  .el-tree-x{
+  border: none;
+}
+.el-dialog-x__wrapper.no-body-padding .el-tabs__content{
+  padding: 0 20px 0 20px;
+}
+.el-input--small .el-input__icon {
+  font-size: 14px;
+}
+.panel-custom-search .el-popover{
+  width: calc(100% - 10px);
+  left: 10px !important;
+}
+.panel-custom-search .el-input .el-icon-caret-top {
+  right: 8px;
+}
+.yu-frame-tab-box>div>div>div {
+  background-color: transparent;
+  box-shadow: none;
+}
+.el-table__empty-text{
+  color: #666;
+}
+.el-table .el-table__th>div, .el-table th>div,
+.el-table .el-table__th, .el-table th{
+  background-color: #F2F2F2
+}
+
+.el-table{
+  border-color: #E0E0E0;
+}
+
+.el-tooltip__popper.border-grey {
+  border-color: #E0E0E0;
+}
+.el-tooltip__popper.border-grey .popper__arrow {
+  border-top-color: #E0E0E0!important;
+}
+.yu-xform .search-btn{
+  height: 58px;
+}
+/* 查询表单最后一列的padding为0 */
+.el-form-search .el-row .el-col-6:nth-of-type(4n) .el-form-item {
+  padding-right: 0 !important;
+ }
+
+ .el-form-search .el-row .el-col-12:nth-of-type(2n) .el-form-item {
+  padding-right: 0 !important;
+ }
+
+ .el-form-search .el-row .el-col-8:nth-of-type(3n) .el-form-item {
+  padding-right: 0 !important;
+ }
+
+.el-form-search .el-form-item,
+.el-form-item{
+  margin-bottom: 20px;
+}
+/* .el-form-details .el-form-item__error{
+  display: none!important;
+} */
+/* 解决弹窗内下拉树错位问题 */
+.el-dialog-x .el-combo-tree .el-popover {
+  width: 100%;
+  position: absolute !important;
+  left: 0 !important;
+}
+.el-icon-information.xform-tooltip-icon.el-popover__reference{
+  top: 0 !important;
+}
+.el-dialog-x__header{
+  padding: 23px 20px 0 20px;
+}
+.el-dialog-x__body .yu-base-panel-collapse .el-xcollapse__icon__expand{
+  padding: 0px;
+}
+.el-form-details .el-form-itemp{
+  margin-bottom: 0px;
+}
+/* UI 2.0 中补充样式-需回归到 yufp-web end*/
+
+.el-table__fixed-header-wrapper .el-table__thead div{
+  color: #444;
+}
+.el-tree-node__content:hover {
+  background-color: rgba(0, 0, 0, 0.05)!important;
+}
+.blue .el-tree-node__content:active{
+  background-color: rgba(40, 119, 255, 0.1)!important;
+}
+.orange .el-tree-node__content:active{
+  background-color:  rgba(41, 3, 3, 0.05)!important;
+}
+.purple .el-tree-node__content:active{
+  background-color:  rgba(85, 87, 185, 0.1)!important;
+}
+.el-tree-node__expand-icon.expanded{
+  vertical-align: middle;
+}
+.el-pagination{
+  padding: 24px 0 0;
+}
+/* 解决xform-item高度不正常导致错位问题 */
+.yu-xform .el-form-item__content[aria-ctype="textarea"],
+.yu-xform .el-form-item__content[aria-ctype="radio"],
+.yu-xform .el-form-item__content[aria-ctype="checkbox"],
+.yu-xform .el-form-item__content[aria-ctype="custom"]{
+  height: auto;
+}
+
+.yu-xform .el-form-item__content[aria-ctype="yu-upload"] {
+  height: auto;
+}
+.yu-xform .el-form-item__content[aria-ctype="yu-ace-editor"] {
+  height: auto;
+}
+.yu-xform .el-form-item__content[aria-ctype="select"],
+.yu-xform .el-form-item__content[aria-ctype="input"],
+.yu-xform .el-form-item__content[aria-ctype="num"]{
+  height: 36px;
+}
+.yu-xform .el-form-item__content{
+  height: 36px;
+}
+/* 某些自定义的custom表单项，需要高度为36px,在item上设置class="fix-height" */
+.yu-xform .fix-height .el-form-item__content[aria-ctype="custom"]{
+  height: 36px;
+}
+/* 解决详情表单内容换行遮挡的问题 */
+.yu-xform.el-form-details .el-form-item__content, .yu-xform.el-form-details .el-form-item {
+  height: auto;
+}
+.yufp-search-tree{
+  height: 36px;
+  line-height: 36px;
+  width: 100%;
+}
+.yufp-search-tree .el-popover{
+  position: absolute !important;
+}
+/* 用户选择器在表单中的样式 */
+.yufp-user-selector .el-form-item{
+  height: 36px;
+  line-height: 36px;
+}
+.el-tabs__nav-wrap.is-top .el-tabs__nav-scroll{
+  margin: 0;
+}
+/* 字体复写 */
+body,textarea,button {font-family:'Microsoft YaHei',-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Helvetica Neue',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';}
+
+/*  checkbox、radio、input禁用样式*/
+.el-checkbox__input.is-disabled.is-checked .el-checkbox__inner,
+.el-input.is-disabled .el-input__inner,
+.el-radio__input.is-disabled .el-radio__inner,
+.el-textarea.is-disabled .el-textarea__inner{
+  border-color: rgba(224, 224, 224, 0.3)!important;
+  background-color: #F0F0F6!important;
+}
+.el-table__fixed-right{
+  border-color: #E0E0E0;
+}
+.el-pagination .btn-next, .el-pagination .btn-prev{
+  color: #949494;
+}
+.el-pagination__editor {
+  border-color: #E0E0E0;
+}
+/* 表格标题类的样式 */
+h1.table-title{
+  font-weight: bold;
+  font-size: 16px;
+  color: #444;
+  margin-bottom:12px
+}

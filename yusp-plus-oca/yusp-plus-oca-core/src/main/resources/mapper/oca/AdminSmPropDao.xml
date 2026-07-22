@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmPropDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmPropEntity" id="adminSmPropMap">
+        <result property="propId" column="PROP_ID"/>
+        <result property="propName" column="PROP_NAME"/>
+        <result property="propDesc" column="PROP_DESC"/>
+        <result property="propValue" column="PROP_VALUE"/>
+        <result property="propRemark" column="PROP_REMARK"/>
+        <result property="instuId" column="INSTU_ID"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+
+</mapper>

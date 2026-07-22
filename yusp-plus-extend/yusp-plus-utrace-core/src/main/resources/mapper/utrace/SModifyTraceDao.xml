@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.utrace.core.dao.ModifyTraceDao">
+
+    <select id="selectListByPk" resultType="cn.com.yusys.yusp.utrace.core.domain.entity.ModifyTraceEntity">
+        SELECT  s.seqid, s.usr_id, s.m_menu_id, s.m_pk_v, s.org_id, s.m_field_id, s.m_field_nm, s.m_old_v, s.m_old_disp_v,
+                s.m_new_v, s.m_new_disp_v, s.m_datetime, s.DATA_TENANT_ID, s.LAST_CHG_USR, s.LAST_CHG_DT,asu.USER_NAME
+        FROM s_modify_trace s
+        left join admin_sm_user asu on s.LAST_CHG_USR =asu.user_id
+        ${ew.customSqlSegment}
+    </select>
+    <select id="selectByPage" resultType="cn.com.yusys.yusp.utrace.core.domain.entity.ModifyTraceEntity">
+        SELECT  s.seqid, s.usr_id, s.m_menu_id, s.m_pk_v, s.org_id, s.m_field_id, s.m_field_nm, s.m_old_v, s.m_old_disp_v,
+                s.m_new_v, s.m_new_disp_v, s.m_datetime, s.DATA_TENANT_ID, s.LAST_CHG_USR, s.LAST_CHG_DT,asu.USER_NAME
+        FROM s_modify_trace s
+                 left join admin_sm_user asu on s.LAST_CHG_USR =asu.user_id
+        ${ew.customSqlSegment}
+    </select>
+</mapper>

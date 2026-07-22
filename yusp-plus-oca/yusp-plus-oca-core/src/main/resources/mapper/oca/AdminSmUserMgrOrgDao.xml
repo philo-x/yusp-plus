@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmUserMgrOrgDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmUserMgrOrgEntity" id="adminSmUserMgrOrgMap">
+        <result property="userMgrOrgId" column="USER_MGR_ORG_ID"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="orgId" column="ORG_ID"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+    <select id="findOrgRelsByUser" resultType="java.lang.String">
+        select org_id from admin_sm_user_mgr_org where user_id=#{userId}
+    </select>
+
+
+</mapper>

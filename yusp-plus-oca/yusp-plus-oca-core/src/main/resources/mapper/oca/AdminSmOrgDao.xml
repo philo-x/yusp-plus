@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmOrgDao">
+
+    <select id="selectAllOrgExtVo" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmOrgVo">
+        SELECT
+        a.org_id,
+        a.org_code,
+        a.org_name,
+        a.org_level,
+        a.org_sts,
+        a.up_org_id,
+        g.org_name AS up_org_name,
+        g.org_code AS up_org_code,
+        a.last_chg_dt,
+        a.last_chg_usr,
+        u.user_name AS last_chg_name
+        FROM
+        admin_sm_org a
+        LEFT JOIN admin_sm_user u ON u.user_id = a.last_chg_usr
+        LEFT JOIN admin_sm_org g ON g.org_ID = a.up_org_id
+        <if test="sort != null and sort != '' ">
+            order by ${sort}
+        </if>
+    </select>
+
+
+    <!-- 根据机构ID查询是否有用户、角色、岗位、部门数据-->
+    <select id="queryRelByOrgId" resultType="int">
+      select sum(rel.count) as num from
+      ( select count(*) count from admin_sm_user u where u.org_id = #{orgId, jdbcType=VARCHAR}
+        union all
+        select count(*) count from admin_sm_role r where r.org_id = #{orgId, jdbcType=VARCHAR}
+        union all
+        select count(*) count from admin_sm_duty d where d.org_id = #{orgId, jdbcType=VARCHAR}
+        union all
+        select count(*) count from admin_sm_dpt t where t.org_id = #{orgId, jdbcType=VARCHAR}) rel
+    </select>
+
+    <resultMap id="parentOrgTree" type="cn.com.yusys.yusp.oca.domain.bo.AdminSmOrgTreeNodeBo">
+        <id column="org_id" property="orgId" jdbcType="VARCHAR"/>
+        <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+        <result column="instu_id" property="instuId" jdbcType="VARCHAR"/>
+        <result column="org_level" property="orgLevel" jdbcType="VARCHAR"/>
+        <result column="org_sts" property="orgSts" jdbcType="VARCHAR"/>
+        <result column="up_org_id" property="upOrgId" jdbcType="VARCHAR"/>
+        <collection property="children" ofType="cn.com.yusys.yusp.oca.domain.bo.AdminSmOrgTreeNodeBo"
+                    column="{ upOrgId = up_org_id }" select="findParentByOrgId"/>
+    </resultMap>
+
+
+    <select id="getAllAncestryOrgs" resultMap="parentOrgTree" parameterType="string">
+		select
+            `ORG_ID`,
+            `INSTU_ID`,
+            `ORG_CODE`,
+            `ORG_NAME`,
+            `UP_ORG_ID`,
+            `ORG_LEVEL`,
+            `ORG_ADDR`,
+            `ZIP_CDE`,
+            `CONT_TEL`,
+            `CONT_USR`,
+            `ORG_SEQ`,
+            `ORG_STS`,
+            `LAST_CHG_USR`,
+            `LAST_CHG_DT`,
+            `DATA_TENANT_ID`
+		from admin_sm_org where org_id = #{orgId}
+	</select>
+
+    <select id="findParentByOrgId" resultMap="parentOrgTree">
+		select
+            `ORG_ID`,
+            `INSTU_ID`,
+            `ORG_CODE`,
+            `ORG_NAME`,
+            `UP_ORG_ID`,
+            `ORG_LEVEL`,
+            `ORG_ADDR`,
+            `ZIP_CDE`,
+            `CONT_TEL`,
+            `CONT_USR`,
+            `ORG_SEQ`,
+            `ORG_STS`,
+            `LAST_CHG_USR`,
+            `LAST_CHG_DT`,
+            `DATA_TENANT_ID`
+		from admin_sm_org where org_id = #{upOrgId}
+	</select>
+
+    <select id="getDetailById" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmOrgDetailVo">
+		SELECT
+			o.*,
+			uo.org_name AS up_org_name,
+			uo.org_code AS up_org_code,
+		    u.user_name AS last_chg_name
+		FROM admin_sm_org o
+		LEFT JOIN admin_sm_org uo ON uo.org_id = o.up_org_id
+		LEFT JOIN admin_sm_user u ON o.last_chg_usr = u.user_id
+		WHERE o.org_id = #{orgId}
+	</select>
+
+    <select id="getOrgsForWf" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmOrgVo">
+		select T1.ORG_CODE as orgId,T1.ORG_NAME, T1.ORG_LEVEL, T1.UP_ORG_ID from admin_sm_org T1
+		${ew.customSqlSegment}
+	</select>
+
+    <select id="getChildOrgCode" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmOrgVo">
+		SELECT T0.ORG_CODE, T0.UP_ORG_ID,T0.ORG_NAME, T0.ORG_LEVEL ,T0.ORG_ID
+		FROM admin_sm_org T0
+		${ew.customSqlSegment}
+	</select>
+
+    <select id="getOrgSeqForUpdate" resultType="cn.com.yusys.yusp.oca.domain.entity.AdminSmOrgEntity">
+        SELECT
+        a.org_id,
+        a.org_code,
+        b.org_seq
+        FROM
+        admin_sm_org a
+        LEFT JOIN admin_sm_org b ON a.up_org_id = b.org_id
+        ${ew.customSqlSegment}
+    </select>
+    <select id="groupDataTenantCount" resultType="java.util.Map">
+        SELECT DATA_TENANT_ID as tenantid ,COUNT(DATA_TENANT_ID) as tenantcount FROM admin_sm_org GROUP BY DATA_TENANT_ID
+    </select>
+    <select id="selectOrgAccessible" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmOrgVo">
+        select
+            org_id,
+            instu_id,
+            org_code,
+            org_name,
+            up_org_id,
+            org_level,
+            org_sts,
+            last_chg_usr,
+            last_chg_dt,org_seq
+        from admin_sm_org ${ew.customSqlSegment}
+    </select>
+
+
+</mapper>

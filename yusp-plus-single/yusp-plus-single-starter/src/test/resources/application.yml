@@ -1,0 +1,180 @@
+
+#########################
+#Spring Boot相关配置
+#########################
+spring:
+  application:
+    name: yusp-app-single # 应用名称(Application name)
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  #jackson配置
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true #jackson格式化输出1
+    default-property-inclusion: non_null # 不返回null的字段
+  #数据库配置
+  datasource:
+    driver-class-name: com.goldendb.jdbc.Driver    #数据库驱动类
+    type: com.zaxxer.hikari.HikariDataSource #datasource使用的连接池类型
+    validation-query: SELECT 1 FROM DUAL #datasource连接验证的查询语句
+    url: jdbc:mysql://100.115.87.201:8880/oca_jdk17_1?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai #数据库连接的url
+    username: dbproxy #数据库连接的用户名
+    password: CSYH@1234 #数据库连接的密码
+    hikari:
+      minimum-idle: 2 #空闲时最小连接数
+      maximum-pool-size: 2 #连接池大小
+      data-source-properties:
+        cachePrepStmts: true #是否启用Prep缓存
+        prepStmtCacheSize: 250 #Prep缓存大小
+        prepStmtCacheSqlLimit: 2048 #Prep缓存sql限制大小
+        useServerPrepStmts: true
+  # This property is deprecated and will be removed in future Spring Boot versions #连接池中的最小空闲连接 默认 0
+        # max-idle: 20
+  # This property is deprecated and will be removed in future Spring Boot versions #连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        # This property is deprecated and will be removed in future Spring Boot versions #连接池最大连接数（使用负值表示没有限制） 默认 8
+        # This property is deprecated and will be removed in future Spring Boot versions
+        # max-active: 20 #连接池最大连接数（使用负值表示没有限制） 默认 8
+        # max-wait: 20000ms #连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        # min-idle: 1
+  # This property is deprecated and will be removed in future Spring Boot versions #连接池中的最小空闲连接 默认 0
+        # max-idle: 20
+  cache:
+    type: redis #spring cache类型
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher #是否用服务缓存Prep
+  #如不使用redis，请将以下配置删除
+  data.redis.database: 9 #是否用服务缓存Prep
+  #如不使用redis，请将以下配置删除
+  data.redis.host: 162.16.9.98 #是否用服务缓存Prep
+  #如不使用redis，请将以下配置删除
+  data.redis.lettuce.shutdown-timeout: 60000ms #是否用服务缓存Prep
+  #如不使用redis，请将以下配置删除
+  data.redis.password: emb #是否用服务缓存Prep
+  #如不使用redis，请将以下配置删除
+  data.redis.timeout: 5000
+#mybatis-plus相关配置
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: ASSIGN_UUID
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+logging:
+  # 日志文件名称
+  file:
+    name: ${spring.application.name}
+    # 日志文件路径
+    path: ../udp-logs/${spring.application.name}/appLogs
+  # 日志级别
+  level:
+    root: INFO
+    # springfox日志关闭输出
+    springfox.documentation.spring.web.readers.operation: 'OFF'
+  pattern:
+    # Logging pattern containing traceId and spanId; no longer provided through Sleuth by default
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+
+#开启服务端控制点权限拦截
+yusp:
+  log:
+    env:
+      enabled: false # 关闭环境日志
+    jvm:
+      enabled: false # 关闭jvm日志
+    dbpool:
+      enabled: false # 关闭连接池日志
+  filter:
+    access:
+      enabled: true
+    xss:
+      enabled: true
+    cors:
+      enabled: true
+    fileupload:
+      enabled: true                               # 是否启用上传文件格式过滤器，默认为true
+      access-file-type: docx,doc,xlsx,xls,txt,jpg,png,pdf,zip,rar                  # 可上传的白名单文件类型，默认允许的白名单文件类型为：docx,doc,xlsx,xls,txt,jpg,png,pdf,zip,rar
+  # 不拦截的请求
+  web:
+    ignoreUrls: /api/util/getReplaySeq,/api/login/queryuserandchecksecret,/api/codeimage/*,/oauth2/token,/api/logout,/api/file/provider/download,/api/adminsmuser/listorgroles/*,/doc.html,/swagger-ui.html,/favicon.ico,/actuator/health,/v3/api-docs/**,/swagger-ui*.html,/swagger-ui/**,/webjars/**,knife4j/**
+    ignoreAccessUrls: /oauth2/token,/api/logout,/api/codeimage/*,/api/session/info,/api/account/menuandcontr,/api/monitor/auditlogdata,/api/password/passwordmodification,/api/util/getReplaySeq,/api/adminsmuser/info/*,/api/adminsmrole/switchrole/cstManager,/api/file/provider/download
+  data-authority:
+    debug: true
+    ignoredApi: /api/util/getReplaySeq,/api/login/queryuserandchecksecret,/api/codeimage/*,/oauth2/token,/api/logout,/api/session/info,/api/account/menuandcontr,/api/file/provider/download,/doc.html,/swagger-ui.html,/webjars/**,/swagger-resources,/swagger-resources/**,/v2/api-docs,/api/adminsmuser/listorgroles/*,/favicon.ico,/actuator/*,/v3/api-docs/**,/swagger-ui*.html,/swagger-ui/**,/webjars/**,knife4j/**
+  interceptor:
+    # 开启多租户拦截器
+    tenant: true
+  excelcsv:
+    temp-dir: /home/nginx/temp/exceltempl
+    max-threads: 5
+    queue-size: 100
+    max-pages: -1
+    page-size: 2
+    batch-size: 10
+    adapter-dict-version: V2
+  file:
+    service:
+      default-template-name: localTemplate # 本地文件操作模板名称，唯一标识
+    localdisks:
+      - template-name: ${yusp.file.service.default-template-name} # 本地文件操作模板名称，唯一标识
+        default-path: /home/nginx/temp/filetempl # 本地文件操作模板默认上传路径 D:\WorkSpace\yusp-plus-nonLombok\yusp-plus-oca
+        server-name: localServer # 本地上传时文件服务器名称,唯一标识
+    temp:
+      client-name-ref: localServer
+      default-path: /home/nginx/temp/localdisk
+  request:
+    crypto:
+      enable: true  #是否开启请求加解密的过滤器
+      url-patterns: /*  #对哪些URL进行过滤
+      header-name-encode: body-encoded  #http请求头里含有该字段的进行过滤
+      key-algorithm: SM2 #非对称算法(支持RSA和SM2)
+      decryption-public-key: 04c4d878364a40a6e6cb984bc876b453bbe7bac127e0d0f1adddb73e9ecf981b0ed8b7af1ddfa5e583cc439c942a4b7e8205dfcb0996ecd001dd047fb70a46e81d  #非对称公钥
+      decryption-private-key: 2c80ee89f080fe5efa88cef3ede8c38b908947b596d8807d10debee427e8d4e8  #非对称私钥
+      #decryption-public-key: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJ7Uf/t5Wvyg5y4lj6UQvP2SzHFRbT2DT1X2SAmN1j4Z34X4fMZnYIy6aSm+lFra2UmVeow/qd8VGJwScPXp7EJuKAissJt46jziYKqFUcX/O6HI1ZRxKOgC+bfCdR+CF/tJMfKkMOKCMrp5Fy5sr9uoikFb5Wc3usq40UaTFjLwIDAQAB
+      #decryption-private-key: MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMntR/+3la/KDnLiWPpRC8/ZLMcVFtPYNPVfZICY3WPhnfhfh8xmdgjLppKb6UWtrZSZV6jD+p3xUYnBJw9ensQm4oCKywm3jqPOJgqoVRxf87ocjVlHEo6AL5t8J1H4IX+0kx8qQw4oIyunkXLmyv26iKQVvlZze6yrjRRpMWMvAgMBAAECgYBSPOwczmUNMgqOaXb5g3Z/ESD2d7VTU/PFlzM0WI2Z9zJCDI4fBf++d0qA3TS1JxXRtl4IIsD4AGdH5j2FOfEIkqon7epPqmdg58hWjV8UoBDdD0yp4AFNqkQCmX/VOXQSa4oYn+Bziniu99wHqDoMwsAWWza1m/ANZwqIGr3xmQJBAO83ULBC14jXV5qei6bT8vbSHDw0OOj+4BHK0t484+Fof2qJMu2bF3WAklEMtpwNTvgCf91GBITW+AJnWyrhJAUCQQDYGDIC0B1/NJDkaxfdSCusPJEgxnSU8lrd55cj66aY/2vZZOnUbWLKuek8yQK6RVJ8AEGYfzfFSgbbWTyfJ+SjAkBX0Uu62V78qmlLpuaHoQlx2OJqq5U029RwU7Ajy+CwcEdOWf2rQqNTDJcqT+t90FjsLSa5mamxBqXXZBAQ5sPtAkAffudLIaoq8C5uHG3OAsbaw7kjXcmALBKyZR7STXZqtk+xz9OE8qyDf7VO9r0/CPuMtzzYTTKDvtZhAhCj4dyhAkAc25cZkzRHP3aZfgIUp/owzgdwD4MlRaBvDMRQxt0hN+hO4rIv7xT/NyllQ71hO6+ZLsJPbR5k2syvkwm1KzGp
+      header-name-key: body-encode-key  #对称密钥的请求头参数名
+      body-algorithm: SM4 #对称算法(支持AES和SM4)
+    nonce:
+      enable: true  #是否开启防重复请求的过滤器
+      url-patterns: /* #对哪些URL进行防重复过滤
+      header-name-nonce: nonce-request #http请求头里含有该字段的进行防重复过滤
+      timeout-seconds: 300 #重复请求的判断时间范围是5分钟
+      nonce-ret-code: 90001 #重复的请求返回的错误码
+      nonce-ret-msg: 重复的请求 #重复的请求返回的错误信息
+    replay:
+      enable: true   #是否使用密码防重
+      timeout-seconds: 300   #密码防重数据有效期
+server:
+  port: 9009
+  tongweb:
+    max-http-post-size: 10000000
+    license:
+      type: file
+      path: classpath:license.dat
+      print-local: false
+# actuator监控配置
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+  health:
+    mail:
+      enabled: false
+springdoc:
+  swagger-ui:
+    enabled: true
+
+knife4j:
+  enable: true

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmInstuDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmInstuEntity" id="adminSmInstuMap">
+        <result property="instuId" column="INSTU_ID"/>
+        <result property="sysId" column="SYS_ID"/>
+        <result property="instuCde" column="INSTU_CDE"/>
+        <result property="instuName" column="INSTU_NAME"/>
+        <result property="joinDt" column="JOIN_DT"/>
+        <result property="instuAddr" column="INSTU_ADDR"/>
+        <result property="zipCde" column="ZIP_CDE"/>
+        <result property="contTel" column="CONT_TEL"/>
+        <result property="contUsr" column="CONT_USR"/>
+        <result property="instuSts" column="INSTU_STS"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+
+    <select id="pageInstuExtVo" resultType="cn.com.yusys.yusp.oca.domain.vo.InstuExtVo">
+            SELECT
+                i.instu_id,
+                i.sys_id,
+                i.instu_cde,
+                i.instu_name,
+                i.join_dt,
+                i.instu_addr,
+                i.zip_cde,
+                i.cont_tel,
+                i.cont_usr,
+                i.instu_sts,
+                i.last_chg_usr,
+                i.last_chg_dt,
+                u.user_name
+            FROM
+                admin_sm_instu i
+            LEFT JOIN admin_sm_user u ON u.user_id = i.last_chg_usr
+            ${ew.customSqlSegment}
+    </select>
+
+
+</mapper>

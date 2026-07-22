@@ -1,0 +1,90 @@
+html,body {min-width:1280px;-webkit-text-size-adjust:none;}
+div,ul,li,form,p,h1,h2,h3 {margin:0;padding:0;list-style:none;border:none}
+img {border:none;float:left}
+iframe{border: none;}
+input,textarea,button {outline:none;resize:none}
+input::-ms-clear,input::-ms-reveal {display:none!important}
+label{font-weight: normal}
+*{box-sizing: content-box;}
+body{margin:0;padding:0;font-size:12px;color:#666;outline:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';}
+/*.yu-menu-horizontal-scrollarea > .el-scrollbar >.el-scrollbar__wrap{overflow-x: hidden}*/
+body {background-color:#f0f0f6;margin:0;padding:0;}
+body,td,th {font-size:12px;color:#666;outline:none}
+body,textarea{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol';}
+input::-ms-clear,input::-ms-reveal {display:none!important}
+a:link,a:visited {font-size:12px;color:#333;text-decoration:none;outline:none;}
+a:hover {color:#636CE4;text-decoration:none;}
+a:active {color:#5557B9;}
+
+/*04-component rewriting sta*/
+.el-table::before,.el-table::after {background-color: #dedeea;}
+.el-table th,.el-table__footer-wrapper thead div, .el-table__header-wrapper thead div{background-color: #eeeefa;}
+.el-table,.el-table--border td, .el-table--border th,.el-table th.is-leaf{border-color: #dedeea;}
+.el-table__footer-wrapper thead div, .el-table__header-wrapper thead div,.el-table td, .el-table th{color: #444;font-size: 14px;}
+.el-table--enable-row-hover .el-table__body tr:hover>td{background-color: #f0f0f6;}
+.el-table__body tr.current-row>td{background-color: #eeeefa;}
+.el-table__body .el-table__row>td a{
+  font-size: 14px;
+}
+.el-button:not(.el-button--text){box-shadow:0px 2px 2px 0px rgba(0,0,0,0.06);transition: .2s;}
+.el-button:focus, .el-button:hover {
+  color: #636CE4;
+  border-color: #636CE4;
+}
+.el-button:active {
+  color: #636CE4;
+  border-color: #636CE4;
+  outline: 0;
+} 
+.el-button--default,.search-btn-group .el-button:nth-child(2){background-color: #fff;border-color: #BABAE3;color: #64647A;}
+.el-button--default:hover,.search-btn-group .el-button:nth-child(2):hover,.el-pagination__editor:focus{color: #636CE4;border-color: #636CE4;}
+.el-button--default:active.search-btn-group .el-button:nth-child(2):active{color: #5557B9;border-color: #5557B9;}
+.el-button--primary,.el-button--primary:active{background-color: #5557B9;border-color: #5557B9;color: #fff;}
+.el-button--primary:hover,.el-button--primary:focus{background-color: #636CE4;border-color: #636CE4;color: #fff;}
+.el-button--text{color: #687AEE;}
+.el-button--text:hover{color: #5557B9;}
+.el-button--text:active{color: #687AEE;}
+.el-checkbox__input.is-checked .el-checkbox__inner,.el-radio__input.is-checked .el-radio__inner{background-color: #636CE4;border-color: #5557B9;}
+.el-input__inner,.el-pagination__sizes .el-input .el-input__inner,.el-pagination .btn-next, .el-pagination .btn-prev,.search-btn-group>span:active,.el-pager li,.el-checkbox__inner,.el-radio__inner,.el-textarea__inner{border-color: #BABAE3;}
+.el-input__inner:hover,.el-select .el-input__inner:hover,.el-pagination__sizes .el-input .el-input__inner:hover,.el-checkbox__inner:hover,.el-radio__inner:hover,.el-textarea__inner:hover{border-color: rgba(99,108,228,0.7);}
+.el-input__inner:focus,.el-select .el-input__inner:focus,.el-pagination__sizes .el-input .el-input__inner:focus,.el-checkbox__inner:focus,.el-radio__inner:focus,.el-textarea__inner:focus{border-color: rgba(99,108,228,1);}
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{background-color: #F0F0F6;}
+.el-select-dropdown__item.selected,.el-select-dropdown__item.selected.hover{background-color: #5557B9;}
+.el-pagination{text-align: right;padding: 20px 0 8px 0;color: #444;}
+.el-pager li:hover,.el-pagination button:hover{color: #5557B9;}
+.el-pager li.active{background-color: #5557B9;border-color: #5557B9;}
+.search-btn-group>.el-button>i{display: none;}
+.search-btn-group>.el-button>span{margin-left: 0;}
+.search-btn-group>span{color: #64647A;}
+.el-date-table td.current:not(.disabled), .el-date-table td.end-date, .el-date-table td.start-date,.el-month-table td.current:not(.disabled) .cell,.el-year-table td.current:not(.disabled) .cell{background-color: #5557B9!important;}
+.search-btn-group>span:hover,.el-date-picker__header-label:hover, .el-picker-panel__icon-btn:hover{color: #636CE4;}
+.search-btn-group>span:active,.el-date-picker__header-label:active, .el-picker-panel__icon-btn:active{color: #5557B9;}
+.el-date-table td.today:before{border-top: .5em solid #5557B9;}
+.el-date-table td.today{color: #5557B9;}
+.el-tree-x{border-color: #ededed;}
+.el-tree-node__content:hover{background-color: #F0F0F6;}
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content{background-color: #eeeefa;}
+.el-tree-node__expand-icon:hover::before{border-left-color:#5557B9;}
+.el-tabs__nav-wrap::after{background-color: #ededed;}
+.el-tabs__nav-wrap.is-top .el-tabs__nav-scroll{margin: 0 24px;}
+.el-tabs__active-bar{background-color: #5557B9;}
+.el-tabs__item{color: #333;}
+.el-tabs__item:hover,.el-tabs__item.is-active{color: #5557B9;}
+.el-input.is-disabled .el-input__inner,.el-checkbox__input.is-disabled.is-checked .el-checkbox__inner,.el-radio__input.is-disabled .el-radio__inner,.el-textarea.is-disabled .el-textarea__inner{background-color: #F0F0F6;border-color:#c7c7da;}
+.el-table__expanded-cell{padding: 20px;background-color: #fff;}
+.el-table__expanded-cell:hover{background-color: #f0f0f6!important;}
+.el-breadcrumb__item:last-child .el-breadcrumb__item__inner, .el-breadcrumb__item:last-child .el-breadcrumb__item__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__item__inner a:hover, .el-breadcrumb__item:last-child .el-breadcrumb__item__inner:hover{color: #949494;}
+.el-breadcrumb__item__inner, .el-breadcrumb__item__inner a{color: #444;}
+.el-breadcrumb__item__inner a:hover, .el-breadcrumb__item__inner:hover{color: #5557B9;}
+/*04-component rewriting end*/
+[class^="yu-treeMenuType"], [class*=" yu-treeMenuType"]{padding: 0 3px; border-radius: 3px;color: #fff;overflow: hidden;margin-right: 5px;}
+
+/** add new start **/
+/* sup{vertical-align: inherit !important;} */
+.el-submenu [class^=yu-icon-] {
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
+}
+/** add new end **/

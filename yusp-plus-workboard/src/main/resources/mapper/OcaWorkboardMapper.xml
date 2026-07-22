@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.yusys.yusp.workboard.dao.OcaWorkboardDao">
+    <resultMap id="ocaWorkboard" type="cn.com.yusys.yusp.workboard.domain.entity.OcaWorkboardEntity">
+		<id column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+		<result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+		<result column="user_manager" jdbcType="VARCHAR" property="userManager" />
+		<result column="user_sex" jdbcType="VARCHAR" property="userSex" />
+		<result column="user_desc" jdbcType="VARCHAR" property="userDesc" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    
+</mapper>

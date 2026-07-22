@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.com.yusys.yusp</groupId>
+        <artifactId>yusp-plus</artifactId>
+        <version>V4.x.x-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>yusp-plus-workboard</artifactId>
+    <name>yusp-plus-workboard</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.com.yusys.yusp</groupId>
+            <artifactId>yusp-plus-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.cscb.uadp.tc</groupId>
+            <artifactId>uadp-tc-starter-esb-spring-boot3</artifactId>
+            <version>1.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.tongweb.springboot</groupId>
+                    <artifactId>tongweb-spring-boot-starter-3.x</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.cscb.uadp.tc</groupId>
+            <artifactId>uadp-tc-starter-httpclient-spring-boot3</artifactId>
+            <version>1.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.tongweb.springboot</groupId>
+                    <artifactId>tongweb-spring-boot-starter-3.x</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.cscb.uadp.tc</groupId>
+            <artifactId>uadp-tc-starter-ftp-spring-boot3</artifactId>
+            <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.tongweb.springboot</groupId>
+                    <artifactId>tongweb-spring-boot-starter-3.x</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+</project>

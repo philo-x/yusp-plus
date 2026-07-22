@@ -1,0 +1,128 @@
+<mxEditor defaultGroup="group" defaultEdge="edge"
+	helpWindowImage="images/help.gif"
+	tasksWindowImage="images/tasks.gif"
+	forcedInserting="0"
+	swimlaneRequired="0">
+	<Array as="templates">
+		<add as="group">
+			<Group label="" description="">
+				<mxCell vertex="1" style="group" connectable="0"/>
+			</Group>
+		</add>
+		<add as="edge">
+			<route label="" isContinueBeanId="" action="actionDelage">
+				<mxCell edge="1">
+					<mxGeometry as="geometry" isRelative="1"/>
+				</mxCell>
+			</route>
+		</add>
+		<add as="swimlane">
+			<Swimlane label="Role" customAttribute="text value">
+				<mxCell vertex="1" style="swimlane" connectable="0">
+					<mxGeometry as="geometry" width="220" height="480"/>
+				</mxCell>
+			</Swimlane>
+		</add>
+		<add as="task">
+			<Task label="Task">
+				<mxCell vertex="1">	
+					<mxGeometry as="geometry" width="80" height="30"/>
+				</mxCell>
+			</Task>
+		</add>
+		<add as="subprocess">
+			<Subprocess label="Subprocess">
+				<mxCell vertex="1" style="rounded">		
+					<mxGeometry as="geometry" width="80" height="30"/>
+				</mxCell>
+			</Subprocess>
+		</add>
+		<add as="node-0">
+			<node label="普通节点" nodeType="0" nodeSign="" opUsersType="0" nodeUser="" computeType="2"  handleType="0" isEndBeanId="" bizBeanId="" reDoUserSelect="1" callBack="0" returnBack="" jump="" change="" assist="" urged="" refuse="" tackBack="" entrust="" copy="" copyUsers="" nodeLevel="0" strategyBeanId="" noticeType="0" bizPage="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/common.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-1">
+			<node label="单选节点" nodeType="1" nodeSign="" opUsersType="0" nodeUser="" computeType="2"  handleType="0" isEndBeanId="" bizBeanId="" reDoUserSelect="1" callBack="0" returnBack="" jump="" change="" assist="" urged="" refuse="" tackBack="" entrust="" copy="" copyUsers="" nodeLevel="0" strategyBeanId="" noticeType="0" bizPage="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/radio.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-2">
+			<node label="多选节点" nodeType="2" nodeSign="" opUsersType="0" nodeUser="" computeType="2"  handleType="0" isEndBeanId="" bizBeanId="" reDoUserSelect="1" callBack="0" returnBack="" jump="" change="" assist="" urged="" refuse="" tackBack="" entrust="" copy="" copyUsers="" nodeLevel="0" strategyBeanId="" noticeType="0" bizPage="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/checkbox.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-3">
+			<node label="条件单选节点" nodeType="3" nodeSign="" opUsersType="0" nodeUser="" computeType="2"  handleType="0" isEndBeanId="" bizBeanId="" reDoUserSelect="1" callBack="0" returnBack="" jump="" change="" assist="" urged="" refuse="" tackBack="" entrust="" copy="" copyUsers="" nodeLevel="0" strategyBeanId="" noticeType="0" bizPage="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/radio_condition.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-4">
+			<node label="条件多选节点" nodeType="4" nodeSign="" opUsersType="0" nodeUser="" computeType="2"  handleType="0" isEndBeanId="" bizBeanId="" reDoUserSelect="1" callBack="0" returnBack="" jump="" change="" assist="" urged="" refuse="" tackBack="" entrust="" copy="" copyUsers="" nodeLevel="0" strategyBeanId="" noticeType="0" bizPage="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/checkbox_condition.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-5">
+			<node label="自动运行节点" nodeType="5" bizBeanId="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/auto.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-C">
+			<node label="汇总节点" nodeType="C"  action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/summary.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-7">
+			<node label="开始节点" nodeType="S" bizBeanId="" bizPage="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/start.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="node-8">
+			<node label="结束节点" nodeType="E" bizBeanId="" action="actionDelage">
+				<mxCell vertex="1" style="img;html=1;labelBackgroundColor=#ffffff;image=libs/mxgraph/images/end.png">		
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</node>
+		</add>
+		<add as="shape">
+			<Shape label="Element">
+				<mxCell vertex="1" style="ellipse">		
+					<mxGeometry as="geometry" width="60" height="50"/>
+				</mxCell>
+			</Shape>
+		</add>
+		<add as="hline">
+			<Shape label="">
+				<mxCell vertex="1" style="ellipse">		
+					<mxGeometry as="geometry" width="60" height="10"/>
+				</mxCell>
+			</Shape>
+		</add>
+	</Array>
+</mxEditor>
+<mxGraph>
+  <mxGraphModel as="model">
+    <root>
+      <Workflow label="工作流" id="0"/>
+      <Layer label="Default Layer">
+        <mxCell parent="0"/>
+      </Layer>
+    </root>
+  </mxGraphModel>
+</mxGraph>

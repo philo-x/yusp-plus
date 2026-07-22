@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="yusp-commons-client-session-test" monitorInterval="60">
+    <properties>
+        <property name="LOG_HOME">/home/uadp/__logs/yusp-plus-single-starter</property>
+        <property name="LOG_NAME">yusp-plus</property>
+        <property name="LOG_PATTERN">[%.5p|%t|%d{HH:mm:ss.SSS} %c{1}:%L|%m]%n</property>
+        <property name="LOG_PATTERN_ASYN">[%.5p|%t|%d{HH:mm:ss.SSS} %c{1}:%L|%m]%n
+        </property>
+    </properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <RollingRandomAccessFile name="app"
+                                 fileName="${LOG_HOME}/${LOG_NAME}_app.log"
+                                 filePattern="${LOG_HOME}/${LOG_NAME}_app.log.%d{yyyyMMddHH}-%i">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="2G"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="error"
+                                 fileName="${LOG_HOME}/${LOG_NAME}_error.log"
+                                 filePattern="${LOG_HOME}/${LOG_NAME}_error.log.%d{yyyyMMddHH}-%i">
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="2G"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="app_asyn"
+                                 fileName="${LOG_HOME}/${LOG_NAME}_app_asyn.log"
+                                 filePattern="${LOG_HOME}/${LOG_NAME}_app_asyn.log.%d{yyyyMMddHH}-%i">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="2G"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="warn"
+                                 fileName="${LOG_HOME}/${LOG_NAME}_bcs.log"
+                                 filePattern="${LOG_HOME}/${LOG_NAME}_bcs.log.%d{yyyyMMddHH}-%i">
+            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="2G"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <!-- 生产去掉该配置 -->
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="app"/>
+            <AppenderRef ref="error"/>
+        </Root>
+    </Loggers>
+</Configuration>

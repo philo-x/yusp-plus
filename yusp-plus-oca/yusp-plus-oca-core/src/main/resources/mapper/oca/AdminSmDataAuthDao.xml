@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.yusys.yusp.oca.dao.AdminSmDataAuthDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.com.yusys.yusp.oca.domain.entity.AdminSmDataAuthEntity" id="adminSmDataAuthMap">
+        <result property="authId" column="AUTH_ID"/>
+        <result property="contrId" column="CONTR_ID"/>
+        <result property="authTmplId" column="AUTH_TMPL_ID"/>
+        <result property="lastChgUsr" column="LAST_CHG_USR"/>
+        <result property="lastChgDt" column="LAST_CHG_DT"/>
+    </resultMap>
+
+    <select id="pageResControlDataAuthTmpl"
+            resultType="cn.com.yusys.yusp.oca.domain.vo.ResControlDataAuthTmplVo">
+        SELECT
+            t.AUTH_TMPL_NAME,
+            t.SQL_STRING,
+            a.AUTH_ID,
+            a.CONTR_ID,
+            a.AUTH_TMPL_ID,
+            a.LAST_CHG_DT,
+            u.USER_NAME AS last_chg_name
+        FROM
+            admin_sm_data_auth a
+                LEFT JOIN admin_sm_user u ON a.LAST_CHG_USR = u.USER_ID
+                LEFT JOIN admin_sm_res_contr c ON a.CONTR_ID = c.CONTR_ID
+                LEFT JOIN admin_sm_data_auth_tmpl t ON a.AUTH_TMPL_ID = t.AUTH_TMPL_ID
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="selectWithTmplIds" resultType="cn.com.yusys.yusp.oca.domain.vo.AdminSmDataTmplVo">
+        select a.auth_tmpl_id, t.auth_tmpl_name from admin_sm_data_auth a
+        LEFT JOIN admin_sm_data_auth_tmpl t
+        on a.auth_tmpl_id = t.auth_tmpl_id
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

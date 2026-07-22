@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>yusp-plus-file</artifactId>
+        <groupId>cn.com.yusys.yusp</groupId>
+        <version>V4.x.x-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>yusp-plus-file-core</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>cn.com.yusys.yusp.common</groupId>
+            <artifactId>yusp-commons-starter-file</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.com.yusys.yusp.common</groupId>
+            <artifactId>yusp-commons-starter-file-localdisk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.com.yusys.yusp.common</groupId>
+            <artifactId>yusp-commons-starter-mybatisplus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <!-- 用户信息 -->
+        <dependency>
+            <groupId>cn.com.yusys.yusp.common</groupId>
+            <artifactId>yusp-commons-starter-session</artifactId>
+        </dependency>
+
+        <!-- Excle导入导出进度查询-->
+        <dependency>
+            <groupId>cn.com.yusys.yusp.common</groupId>
+            <artifactId>yusp-commons-starter-redis</artifactId>
+        </dependency>
+
+        <!-- 使用进度查询接口 -->
+        <dependency>
+            <groupId>cn.com.yusys.yusp.common</groupId>
+            <artifactId>yusp-commons-progress</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

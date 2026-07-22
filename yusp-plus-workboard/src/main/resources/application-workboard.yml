@@ -1,0 +1,42 @@
+uadp-tc:
+  esb:
+    branch-code: "990101" # 请求柜员代号，非必填
+    channel-id: "E00" # 渠道号，必填
+    operator-id: "9901815" # 请求柜员类型，非必填
+    conn:
+      connection-manager:
+        default-max-per-route: 500 # 每个路由的最大连接数。路由可以理解为一个 HTTP 请求的目标地址（例如：域名加端口号），默认500，非必填
+        max-total: 500 # 设置整个连接管理器管理的所有连接数的最大值，默认 500，非必填
+        validate-after-inactivity: 2000 # 连接不活跃多久检查一次，单位毫秒，默认 2000 ms，非必填
+      url: "http://100.89.42.34:8080/isb/isbservices/InputProxy/Common01" # 访问 ESB 地址，必填
+      request-config:
+        connect-timeout: 30000 # 连接超时时间，单位毫秒，默认 30000 ms，非必填
+        socket-timeout: 30000 # socket 超时时间，单位毫秒，默认 30000 ms，非必填
+  http-client:
+    # 连接池配置
+    max-total: 200 # 连接池最大连接数，默认 200，非必填
+    default-max-per-route: 20 # 每个路由的最大连接数，默认 20，非必填
+    connect-timeout: 5000 # 连接超时时间，单位毫秒，默认 5000 ms，非必填
+    socket-timeout: 10000 # 读取超时时间，单位毫秒，默认 10000 ms，非必填
+    connection-request-timeout: 3000 # 从连接池获取连接的超时时间，单位毫秒，默认 3000 ms，非必填
+    validate-after-inactivity: 2000 # 连接存活时间，单位秒，默认 2000 s，非必填
+
+    # 重试配置
+    retry-enabled: true # 是否开启重试，默认 true，非必填
+    retry-count: 3 # 重试次数，默认 3，非必填
+
+    # 功能开关
+    log-enabled: true # 是否开启日志，默认 true，非必填
+  ftp:
+    enabled: true
+    host: ftp.example.com
+    port: 21
+    username: your-username
+    password: your-password
+    # 是否使用被动模式
+    passive-mode: true
+    encoding: UTF-8
+    pool:
+      max-size: 10      # 最大连接数
+      min-idle: 0       # 最小空闲连接数
+      connection-timeout: 30000    # 连接超时时间

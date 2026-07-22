@@ -1,0 +1,18 @@
+/*
+ * 针对英文版本
+*/
+body.en .yu-logo {font-size: 14px}
+body.en .el-pagination .el-select .el-input {width: 130px}
+body.en .yu-base-panel-filter.active .el-form-search .el-form-item{margin-bottom: 32px;}
+body.en .el-form-search .search-btn-group{padding-top: 0px; padding-left: 0!important;}
+body.en .post-user .el-form-search .search-btn-group{padding-left: 50px!important;}
+body.en .yu-base-panel-filter.active .el-form-search .el-form-item__label{width: auto!important;}
+body.en .yu-base-panel-filter.active .el-form-search .el-row .el-col-6:nth-of-type(5n) .el-form-item{margin-bottom: 0px;}
+body.en .yu-base-panel-filter.active .el-form-search .el-row div:nth-of-type(4n).search-btn-group{margin-top: 35px;}
+body.en .yu-base-panel-filter.active .el-form-search .el-row div:nth-of-type(3n).search-btn-group{margin-top: 35px;}
+body.en .yu-base-panel-filter.active .el-form-search .el-row div:nth-of-type(5n).search-btn-group{margin-top: 35px;}
+body.en .yu-base-panel-filter.active .el-form-search .el-row div:nth-of-type(6n) .search-btn-group{margin-top: 35px;}
+body.en .yu-base-panel-filter.active .el-form-search .el-form-item__content{margin-left: 0!important;}
+body.en .yu-base-panel-filter.active .el-form-search .search-btn-group{margin-bottom: 0;padding-bottom: 0;}
+body.en .yu-base-panel-filter .yu-xform .search-btn{height: auto!important;}
+body.en .yu-base-panel-filter.active{margin-bottom: 22px;}
