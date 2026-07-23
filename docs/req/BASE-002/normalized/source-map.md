@@ -1,10 +1,19 @@
-# BASE-002 来源映射
+# BASE-002 时效与基线 - 基线、调出、加塞与原计划 - 溯源映射表 (source-map.md)
 
-| 内容 | 规范化来源 | 补充来源 |
-|---|---|---|
-| 场景 | `../../normalized/知效平台建设需求规格说明书(SRS-PRD).md` §3 `SCN-BASE-002` | V1.2 基线/加塞 |
-| 功能需求 | `../../normalized/02_核心功能模块需求规格.md` §5.2 | V1.2；接口分析 |
-| 规则/边界 | PRD §5～7 `RULE-BASE-002/003、EDGE-BASE-*` | 功能需求 |
-| 数据 | `../../normalized/03_数据模型与接口规范.md` §1 `DATA-REQ/BASE` | `../../source/表设计.md` |
-| 接口/作业 | 附件 C §2.4、§3 `IF-071～081；J07～J09` | `../../source/接口逻辑分析.md` |
-| 验收 | `../../normalized/04_数据迁移与灰度上线方案.md` §4 `AC-BASE-002～003` | 功能验收条件 |
+> **任务包编号**：BASE-002  
+> **任务包名称**：时效与基线 - 基线、调出、加塞与原计划  
+
+---
+
+## 溯源映射表 (Source Traceability Matrix)
+
+| 需求/规则 ID | PRD 章节/条款 | TechSpec 模块/组件 | API 接口编号 | GoldenDB 数据库表 |
+|---|---|---|---|---|
+| **FR-151** | PRD 7.3 基线生成 | `yusp-plus-job-core` (J04, J07) | `IF-072`, `IF-073` | `baseline_record`, `baseline_change_log` |
+| **FR-152** | PRD 7.4 原计划 | `BaselineServiceImpl` | `IF-074` | `requirement_plan` |
+| **FR-153** | PRD 7.5 首次上线 | `RequirementServiceImpl` | `IF-075` | `requirement` |
+| **FR-154** | PRD 7.6 计划偏差 | `BaselineServiceImpl` | `IF-076`, `IF-077` | `baseline_change_log` |
+| **BR-161** | PRD 7.3 基线判定 | `BaselineServiceImpl` | `IF-072` | `baseline_record` |
+| **BR-162** | PRD 7.4 原计划 | `BaselineServiceImpl` | `IF-074` | `requirement_plan` |
+| **BR-163** | PRD 7.5 首次上线 | `RequirementServiceImpl` | `IF-075` | `requirement` |
+| **BR-164** | PRD 7.6 偏差变更 | `BaselineServiceImpl` | `IF-076` | `baseline_change_log` |

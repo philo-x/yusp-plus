@@ -1,10 +1,20 @@
-# BASE-001 来源映射
+# BASE-001 时效与基线 - 阶段时效与扣减/回退 - 溯源映射表 (source-map.md)
 
-| 内容 | 规范化来源 | 补充来源 |
-|---|---|---|
-| 场景 | `../../normalized/知效平台建设需求规格说明书(SRS-PRD).md` §3 `SCN-BASE-001` | V1.2 阶段时效/扣减 |
-| 功能需求 | `../../normalized/02_核心功能模块需求规格.md` §5.1 | V1.2；接口分析 |
-| 规则/边界 | PRD §5～7 `RULE-BASE-001、ERR-BASE-001、EDGE-REQ-002` | 功能需求 |
-| 数据 | `../../normalized/03_数据模型与接口规范.md` §1 `DATA-REQ/BASE` | `../../source/表设计.md` |
-| 接口/作业 | 附件 C §2.4、§3 `IF-065～070；J06` | `../../source/接口逻辑分析.md` |
-| 验收 | `../../normalized/04_数据迁移与灰度上线方案.md` §4 `AC-BASE-001` | 功能验收条件 |
+> **任务包编号**：BASE-001  
+> **任务包名称**：时效与基线 - 阶段时效与扣减/回退  
+
+---
+
+## 溯源映射表 (Source Traceability Matrix)
+
+| 需求/规则 ID | PRD 章节/条款 | TechSpec 模块/组件 | API 接口编号 | GoldenDB 数据库表 |
+|---|---|---|---|---|
+| **FR-141** | PRD 7.1 阶段时效 | `RequirementServiceImpl` | `IF-066` | `stage_aging_record` |
+| **FR-142** | PRD 7.1 阶段时效 | `RequirementServiceImpl` | `IF-067` | `requirement_stage` |
+| **FR-143** | PRD 7.2 时效扣减 | `BaselineController` | `IF-068`, `IF-069` | `stage_deduction_request` |
+| **FR-144** | PRD 7.2 时效扣减 | `yusp-plus-oca-web2.0` | `IF-066` | `stage_aging_record` |
+| **FR-145** | PRD 7.2 回退累计 | `RequirementServiceImpl` | `IF-070` | `stage_aging_record` |
+| **BR-151** | PRD 7.2 时效扣减 | `BaselineServiceImpl` | `IF-068` | `stage_aging_record` |
+| **BR-152** | PRD 7.2 回退累计 | `RequirementServiceImpl` | `IF-070` | `stage_aging_record` |
+| **BR-153** | PRD 7.2 时效扣减 | `BaselineServiceImpl` | `IF-068` | `stage_deduction_request` |
+| **BR-154** | PRD 7.1 阶段时效 | `RequirementServiceImpl` | `IF-066` | `stage_aging_record` |

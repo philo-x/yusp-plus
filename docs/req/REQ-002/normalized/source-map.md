@@ -1,12 +1,24 @@
-# REQ-002 来源映射
+# REQ-002 需求管理 - 需求详情与列表筛选 - 溯源映射表 (source-map.md)
 
-| 内容 | 规范化来源 | 补充来源 |
-|---|---|---|
-| 场景 | `../../normalized/知效平台建设需求规格说明书(SRS-PRD).md` §3 `SCN-REQ-002` | V1.2 阶段、风险、归档 |
-| 功能需求 | `../../normalized/02_核心功能模块需求规格.md` §2.2、§6 | V1.2；接口分析 |
-| 规则/异常/边界 | PRD §5～7 `RULE-REQ-*、ERR-SYNC-*、EDGE-REQ-*` | 场景与功能需求 |
-| 数据 | `../../normalized/03_数据模型与接口规范.md` §1 `DATA-REQ/SYNC` | `../../source/表设计.md` |
-| 接口/作业 | 附件 C §2.4、§3 `IF-006、008～013、100～103；J01/J10/J11/J13` | `../../source/接口逻辑分析.md` |
-| 验收 | `../../normalized/04_数据迁移与灰度上线方案.md` §4 `AC-REQ-002/003/005、AC-INT-001` | 功能验收条件 |
+> **任务包编号**：REQ-002  
+> **任务包名称**：需求管理 - 需求详情与列表筛选  
 
-`REQ-001` 承接需求视图、筛选、横幅和自定义字段。
+---
+
+## 溯源映射表 (Source Traceability Matrix)
+
+| 需求/规则 ID | PRD 章节/条款 | TechSpec 模块/组件 | API 接口编号 | GoldenDB 数据库表 |
+|---|---|---|---|---|
+| **FR-021** | PRD 4.3 需求详情 | `yusp-plus-workboard` | `IF-007` | `requirement`, `requirement_detail`, `requirement_operation_log` |
+| **FR-022** | PRD 4.4.1 默认范围 | `RequirementController` | `IF-008` | `requirement` |
+| **FR-023** | PRD 4.4.1 默认字段 | `yusp-plus-oca-web2.0` | `IF-008` | `requirement`, `stage_aging_record` |
+| **FR-024** | PRD 4.4.1 计时规则 | `yusp-plus-job-core` (J05) | `IF-066` | `stage_aging_record` |
+| **FR-025** | PRD 4.4.2 筛选 | `RequirementServiceImpl` | `IF-009` | `requirement` |
+| **FR-026** | PRD 4.4.2 排序 | `RequirementServiceImpl` | `IF-009` | `requirement` |
+| **FR-027** | PRD 4.4.2 展示 | `SysController` | `IF-010`, `IF-087` | `user_column_config` |
+| **FR-028** | PRD 4.4.2 批量/导出 | `RequirementController` | `IF-011`, `IF-012` | `requirement`, `custom_field_value` |
+| **BR-026** | PRD 4.3 需求详情 | `RequirementServiceImpl` | `IF-007` | `requirement` |
+| **BR-027** | PRD 4.4.1 计时规则 | `yusp-plus-job-core` | `IF-066` | `stage_aging_record` |
+| **BR-028** | PRD 4.4.2 筛选 | `RequirementServiceImpl` | `IF-009` | `requirement` |
+| **BR-029** | PRD 4.4.2 导出 | `RequirementServiceImpl` | `IF-012` | `requirement` |
+| **BR-030** | PRD 4.4.2 展示 | `SysServiceImpl` | `IF-087` | `user_column_config` |

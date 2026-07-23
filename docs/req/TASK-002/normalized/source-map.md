@@ -1,10 +1,21 @@
-# TASK-002 来源映射
+# TASK-002 任务管理 - 任务分发、认领与流转 - 溯源映射表 (source-map.md)
 
-| 内容 | 规范化来源 | 补充来源 |
-|---|---|---|
-| 场景 | `../../normalized/知效平台建设需求规格说明书(SRS-PRD).md` §3 `SCN-TASK-002` | V1.2 知安集成 |
-| 功能需求 | `../../normalized/02_核心功能模块需求规格.md` §3.1～3.2、§6 | V1.2；接口分析 |
-| 异常/边界 | PRD §6～7 `ERR-SYNC-*` | 场景与功能需求 |
-| 数据 | `../../normalized/03_数据模型与接口规范.md` §1 `DATA-TASK/SYNC` | `../../source/表设计.md` |
-| 接口/作业 | 附件 C §2.4、§3 `IF-037/038/051/108；J12` | `../../source/接口逻辑分析.md` |
-| 验收 | `../../normalized/04_数据迁移与灰度上线方案.md` §4 `AC-TASK-003、AC-INT-001` | 功能验收条件 |
+> **任务包编号**：TASK-002  
+> **任务包名称**：任务管理 - 任务分发、认领与流转  
+
+---
+
+## 溯源映射表 (Source Traceability Matrix)
+
+| 需求/规则 ID | PRD 章节/条款 | TechSpec 模块/组件 | API 接口编号 | GoldenDB 数据库表 |
+|---|---|---|---|---|
+| **FR-091** | PRD 5.6 任务分发 | `TaskController` | `IF-037` | `task`, `task_assignment_log` |
+| **FR-092** | PRD 5.6, 5.8 未分配池 | `TaskController` | `IF-038` | `task` |
+| **FR-093** | PRD 5.8 嵌入式表格 | `yusp-plus-oca-web2.0` | `IF-039` | `task` |
+| **FR-094** | PRD 5.6, 5.8 流程触发 | `TaskServiceImpl` | `IF-040`, `IF-100` | `task`, `sync_event_log` |
+| **FR-095** | PRD 5.8 任务列表 | `TaskController` | `IF-041` | `task` |
+| **FR-096** | PRD 5.8 连击下钻 | `yusp-plus-oca-web2.0` | `IF-042` | `task`, `oca_org` |
+| **BR-096** | PRD 5.6 任务分发 | `TaskServiceImpl` | `IF-037`, `IF-039` | `task_sub` |
+| **BR-097** | PRD 5.6, 5.8 未分配池 | `TaskServiceImpl` | `IF-038` | `task` |
+| **BR-098** | PRD 5.8 嵌入式表格 | `yusp-plus-oca-web2.0` | `IF-039` | `task` |
+| **BR-099** | PRD 5.8 任务列表 | `TaskServiceImpl` | `IF-041` | `task` |

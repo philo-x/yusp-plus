@@ -1,10 +1,20 @@
-# WH-001 来源映射
+# WH-001 报工管理 - 考勤同步与默认工时生成 - 溯源映射表 (source-map.md)
 
-| 内容 | 规范化来源 | 补充来源 |
-|---|---|---|
-| 场景 | `../../normalized/知效平台建设需求规格说明书(SRS-PRD).md` §3 `SCN-WH-001` | V1.2 报工/考勤 |
-| 功能需求 | `../../normalized/02_核心功能模块需求规格.md` §3.2、§4.1～4.2 | V1.2；接口分析 |
-| 规则/边界 | PRD §5～7 `RULE-WH-*、EDGE-WH-*、ERR-WH-*` | 功能需求 |
-| 数据 | `../../normalized/03_数据模型与接口规范.md` §1 `DATA-TASK/WH` | `../../source/表设计.md` |
-| 接口/作业 | 附件 C §2.4、§3 `IF-032/036/052～061；J02/J03` | `../../source/接口逻辑分析.md` |
-| 验收 | `../../normalized/04_数据迁移与灰度上线方案.md` §4 `AC-WH-001～003` | 功能验收条件 |
+> **任务包编号**：WH-001  
+> **任务包名称**：报工管理 - 考勤同步与默认工时生成  
+
+---
+
+## 溯源映射表 (Source Traceability Matrix)
+
+| 需求/规则 ID | PRD 章节/条款 | TechSpec 模块/组件 | API 接口编号 | GoldenDB 数据库表 |
+|---|---|---|---|---|
+| **FR-111** | PRD 6.2 考勤数据同步 | `yusp-plus-job-core` (J02) | `IF-103` | `attendance_sync_record` |
+| **FR-112** | PRD 6.2, 6.3 默认工时 | `yusp-plus-job-core` (J02, J03) | `IF-051` | `user_work_day` |
+| **FR-113** | PRD 6.3 默认工时生成 | `WorkHourServiceImpl` | `IF-052` | `work_hour_record` |
+| **FR-114** | PRD 6.3 默认工时生成 | `WorkHourServiceImpl` | `IF-052` | `work_hour_record` |
+| **FR-115** | PRD 6.3 默认工时生成 | `WorkHourServiceImpl` | `IF-052` | `work_hour_record` |
+| **BR-116** | PRD 6.2 考勤数据同步 | `yusp-plus-job-core` | `IF-103` | `attendance_sync_record` |
+| **BR-117** | PRD 6.2, 6.3 调度时点 | `yusp-plus-job-core` | `IF-051` | `work_hour_record` |
+| **BR-118** | PRD 6.3 均摊算法 | `WorkHourServiceImpl` | `IF-052` | `work_hour_record` |
+| **BR-119** | PRD 6.3 默认工时 | `WorkHourServiceImpl` | `IF-052` | `work_hour_record` |

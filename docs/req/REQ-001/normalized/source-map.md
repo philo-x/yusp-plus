@@ -1,12 +1,21 @@
-# REQ-001 来源映射
+# REQ-001 需求管理 - 视图、泳道与甘特图 - 溯源映射表 (source-map.md)
 
-| 内容 | 规范化来源 | 补充来源 |
-|---|---|---|
-| 场景 | `../../normalized/知效平台建设需求规格说明书(SRS-PRD).md` §3 `SCN-REQ-001` | V1.2“需求管理视图” |
-| 功能需求 | `../../normalized/02_核心功能模块需求规格.md` §2.1、§2.2 | V1.2；接口分析 |
-| 业务规则 | PRD §5 `RULE-REQ-001/003` | 功能需求 |
-| 数据 | `../../normalized/03_数据模型与接口规范.md` §1 `DATA-REQ/ORG` | `../../source/表设计.md` |
-| 接口 | 附件 C §2.4 `IF-001～005、018～027、100、104` | `../../source/接口逻辑分析.md` |
-| 验收 | `../../normalized/04_数据迁移与灰度上线方案.md` §4 `AC-REQ-001/003/004` | 功能需求验收条件 |
+> **任务包编号**：REQ-001  
+> **任务包名称**：需求管理 - 视图、泳道与甘特图  
 
-`REQ-002` 承接同一原始场景中的阶段流转、风险和归档能力。
+---
+
+## 溯源映射表 (Source Traceability Matrix)
+
+| 需求/规则 ID | PRD 章节/条款 | TechSpec 模块/组件 | API 接口编号 | GoldenDB 数据库表 |
+|---|---|---|---|---|
+| **FR-011** | PRD 4.2 需求价值流 | `yusp-plus-workboard` (RequirementController) | `IF-001` | `requirement`, `requirement_stage` |
+| **FR-012** | PRD 4.1 功能概述 | `yusp-plus-oca-web2.0` (Vue Component) | `IF-001`, `IF-002` | `requirement` |
+| **FR-013** | PRD 4.5 甘特图 | `RequirementController` | `IF-003` | `requirement`, `requirement_plan` |
+| **FR-014** | PRD 4.5 甘特图 | `yusp-plus-oca-web2.0` | N/A (前端组件) | N/A |
+| **FR-015** | PRD 4.5 甘特图 | `yusp-plus-oca-web2.0` | `IF-004` | `requirement_detail` |
+| **FR-016** | PRD 4.5 甘特图 | `RequirementServiceImpl` | `IF-005` | `task`, `requirement` |
+| **BR-016** | PRD 4.2 需求价值流 | `RequirementServiceImpl` | `IF-001` | `requirement_stage` |
+| **BR-017** | PRD 4.5 甘特图 | `RequirementServiceImpl` | `IF-003` | `requirement_plan` |
+| **BR-018** | PRD 4.5 甘特图 | `SyncIntegrationController` | `IF-100` | `requirement_stage` |
+| **BR-019** | PRD 4.5 甘特图 | `RequirementServiceImpl` | `IF-005` | `task` |
